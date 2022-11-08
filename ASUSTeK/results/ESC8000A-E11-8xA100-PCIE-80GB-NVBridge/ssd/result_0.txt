@@ -1,0 +1,1355 @@
++ echo 'Beginning trial 1 of 5'
+Beginning trial 1 of 5
++ '[' 1 -eq 1 ']'
++ sync
++ sudo /sbin/sysctl vm.drop_caches=3
+vm.drop_caches = 3
++ docker exec -it single_stage_detector python -c '
+from mlperf_logger import mllogger
+mllogger.event(key=mllogger.constants.CACHE_CLEAR, value=True)'
+:::MLLOG {"namespace": "", "time_ms": 1665626831082, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "<string>", "lineno": 3}}
++ docker exec -it --env=./config_data_Mlperf1.sh --env=BATCHSIZE --env=DGXHT --env=DGXNGPU --env=DGXNNODES --env=DGXNSOCKET --env=DGXSOCKETCORES --env=DGXSYSTEM --env=EXTRA_PARAMS --env=LR --env=NUMEPOCHS --env=WALLTIME --env=WARMUP_EPOCHS --env=MLPERF_HOST_OS single_stage_detector python -m torch.distributed.run --standalone --no_python --nproc_per_node=8 ./run_and_time.sh
+WARNING:__main__:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+STARTING TIMING RUN AT 2022-10-13 02:07:12 AM
+running benchmark
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+| distributed init (rank 5): env://
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+| distributed init (rank 1): env://
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+| distributed init (rank 6): env://
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+[W init.cpp:875] Warning: Use _jit_set_fusion_strategy, bailout depth is deprecated. Setting to (STATIC, 20) (function operator())
+| distributed init (rank 7): env://
+| distributed init (rank 3): env://
+| distributed init (rank 4): env://
+| distributed init (rank 2): env://
+| distributed init (rank 0): env://
+:::MLLOG {"namespace": "", "time_ms": 1665626844085, "event_type": "POINT_IN_TIME", "key": "submission_benchmark", "value": "ssd", "metadata": {"file": "train.py", "lineno": 288}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844150, "event_type": "POINT_IN_TIME", "key": "submission_org", "value": "ASUSTeK", "metadata": {"file": "train.py", "lineno": 288}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844151, "event_type": "POINT_IN_TIME", "key": "submission_division", "value": "closed", "metadata": {"file": "train.py", "lineno": 288}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844151, "event_type": "POINT_IN_TIME", "key": "submission_status", "value": "onprem", "metadata": {"file": "train.py", "lineno": 288}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844151, "event_type": "POINT_IN_TIME", "key": "submission_platform", "value": "1xESC8000A-E11", "metadata": {"file": "train.py", "lineno": 288}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844151, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "train.py", "lineno": 289}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735079, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "local_batch_size", "value": 32, "metadata": {"file": "train.py", "lineno": 307}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844172, "event_type": "POINT_IN_TIME", "key": "global_batch_size", "value": 256, "metadata": {"file": "train.py", "lineno": 308}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844172, "event_type": "POINT_IN_TIME", "key": "epoch_count", "value": 6, "metadata": {"file": "train.py", "lineno": 309}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844172, "event_type": "POINT_IN_TIME", "key": "first_epoch_num", "value": 0, "metadata": {"file": "train.py", "lineno": 310}}
+Namespace(amp=True, apex_adam=True, apex_focal_loss=True, apex_head_fusion=True, async_coco=True, async_coco_check_freq=20, backbone='resnext50_32x4d', batch_size=32, broadcast_buffers=False, cls_head_pad=True, coco_threads=8, cocoeval='nvidia', cuda_graphs=True, cuda_graphs_eval=False, cuda_graphs_syn=True, cudnn_bench=False, dali=True, dali_cpu_decode=False, dali_eval=True, dali_eval_cache=False, dali_matched_idxs=True, dali_prefetch_queue_depth=2, data_augmentation='hflip', data_layout='channels_last', dataset='openimages-mlperf', dataset_path='/datasets/open-images-v6', ddp_bucket_sz=25, ddp_first_bucket_sz=None, device='cuda', dist_backend='nccl', dist_url='env://', distributed=True, epochs=6, eval_batch_size=32, eval_print_freq=20, eval_rank=0, eval_ranks=[0, 1, 2, 3, 4, 5, 6, 7], fp16_allreduce=True, frozen_bn_fp16=True, frozen_bn_opt=True, gpu=0, image_size=[800, 800], jit=True, lr=8.5e-05, max_boxes=1000, model_warmup_epochs=16, not_graphed_prologues=False, num_classes=None, num_eval_ranks=8, num_train_ranks=8, output_dir=None, pretrained=False, print_freq=20, rank=0, ranks=[0, 1, 2, 3, 4, 5, 6, 7], reg_head_pad=True, resume='', seed=255735079, skip_metric_loss=True, start_epoch=0, syn_dataset=False, sync_after_graph_replay=True, sync_bn=False, target_map=0.34, test_only=False, train_annotations_file=None, train_data_path=None, train_rank=0, train_ranks=[0, 1, 2, 3, 4, 5, 6, 7], trainable_backbone_layers=3, val_annotations_file=None, val_data_path=None, warmup_epochs=0, warmup_factor=0.001, workers=4, world_size=8)
+Getting dataset information
+Creating model
+:::MLLOG {"namespace": "", "time_ms": 1665626844202, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 209, "tensor": "module.backbone.fpn.extra_blocks.p6.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844205, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 211, "tensor": "module.backbone.fpn.extra_blocks.p6.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844207, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 209, "tensor": "module.backbone.fpn.extra_blocks.p7.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844210, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 211, "tensor": "module.backbone.fpn.extra_blocks.p7.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735081, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735082, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735085, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735083, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844160, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735080, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844171, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735084, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844172, "event_type": "POINT_IN_TIME", "key": "seed", "value": 255735086, "metadata": {"file": "train.py", "lineno": 304}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844416, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844417, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.0.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844417, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.0.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844417, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.0.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844417, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.0.downsample.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844417, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.1.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844418, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.1.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844418, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.1.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844418, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.2.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844418, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.2.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844418, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer1.2.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844419, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.0.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844419, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.0.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844419, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.0.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844420, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.0.downsample.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844421, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.1.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844421, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.1.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844421, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.1.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844422, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.2.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844423, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.2.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844423, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.2.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844424, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.3.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844424, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.3.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844425, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer2.3.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844425, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.0.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844427, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.0.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844427, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.0.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844429, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.0.downsample.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844432, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.1.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844434, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.1.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844435, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.1.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844437, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.2.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844440, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.2.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844440, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.2.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844443, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.3.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844445, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.3.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844445, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.3.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844448, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.4.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844450, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.4.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844451, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.4.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844453, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.5.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844456, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.5.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844456, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer3.5.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844459, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.0.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844463, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.0.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844465, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.0.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844474, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.0.downsample.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844484, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.1.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844493, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.1.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844495, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.1.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844504, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.2.conv1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844513, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.2.conv2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844515, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/resnet.py", "lineno": 265, "tensor": "module.backbone.body.layer4.2.conv3.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844615, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 108, "tensor": "module.backbone.fpn.inner_blocks.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844616, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 110, "tensor": "module.backbone.fpn.inner_blocks.0.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844616, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 108, "tensor": "module.backbone.fpn.inner_blocks.1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844618, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 110, "tensor": "module.backbone.fpn.inner_blocks.1.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844618, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 108, "tensor": "module.backbone.fpn.inner_blocks.2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844620, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 110, "tensor": "module.backbone.fpn.inner_blocks.2.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844620, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 108, "tensor": "module.backbone.fpn.layer_blocks.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844623, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 110, "tensor": "module.backbone.fpn.layer_blocks.0.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844623, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 108, "tensor": "module.backbone.fpn.layer_blocks.1.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844626, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 110, "tensor": "module.backbone.fpn.layer_blocks.1.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844626, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 108, "tensor": "module.backbone.fpn.layer_blocks.2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844629, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/feature_pyramid_network.py", "lineno": 110, "tensor": "module.backbone.fpn.layer_blocks.2.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844648, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 142, "tensor": "module.head.classification_head.conv.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844651, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 144, "tensor": "module.head.classification_head.conv.0.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844651, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 142, "tensor": "module.head.classification_head.conv.2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844654, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 144, "tensor": "module.head.classification_head.conv.2.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844654, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 142, "tensor": "module.head.classification_head.conv.4.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844657, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 144, "tensor": "module.head.classification_head.conv.4.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844657, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 142, "tensor": "module.head.classification_head.conv.6.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844660, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 144, "tensor": "module.head.classification_head.conv.6.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844685, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 148, "tensor": "module.head.classification_head.cls_logits.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844710, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 150, "tensor": "module.head.classification_head.cls_logits.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844722, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 318, "tensor": "module.head.regression_head.bbox_reg.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844722, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 320, "tensor": "module.head.regression_head.bbox_reg.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844723, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 325, "tensor": "module.head.regression_head.conv.0.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844725, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 327, "tensor": "module.head.regression_head.conv.0.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844725, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 325, "tensor": "module.head.regression_head.conv.2.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844728, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 327, "tensor": "module.head.regression_head.conv.2.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844728, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 325, "tensor": "module.head.regression_head.conv.4.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844731, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 327, "tensor": "module.head.regression_head.conv.4.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844731, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 325, "tensor": "module.head.regression_head.conv.6.weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844734, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/ssd/model/retinanet.py", "lineno": 327, "tensor": "module.head.regression_head.conv.6.bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844889, "event_type": "POINT_IN_TIME", "key": "opt_name", "value": "adam", "metadata": {"file": "train.py", "lineno": 372}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844889, "event_type": "POINT_IN_TIME", "key": "opt_base_learning_rate", "value": 8.5e-05, "metadata": {"file": "train.py", "lineno": 373}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844889, "event_type": "POINT_IN_TIME", "key": "opt_weight_decay", "value": 0, "metadata": {"file": "train.py", "lineno": 374}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844889, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_epochs", "value": 0, "metadata": {"file": "train.py", "lineno": 375}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844889, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_factor", "value": 0.001, "metadata": {"file": "train.py", "lineno": 376}}
+:::MLLOG {"namespace": "", "time_ms": 1665626844889, "event_type": "POINT_IN_TIME", "key": "gradient_accumulation_steps", "value": 1, "metadata": {"file": "train.py", "lineno": 377}}
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/opt/conda/lib/python3.8/site-packages/torch/functional.py:484: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/native/TensorShape.cpp:2984.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Model eval warmup
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/scatter_gather.py:9: UserWarning: is_namedtuple is deprecated, please use the python checks instead
+  warnings.warn("is_namedtuple is deprecated, please use the python checks instead")
+Time: 70.57223010063171 sec
+Creating Dali dataloader
+CUDA graph capture
+:::MLLOG {"namespace": "", "time_ms": 1665626947701, "event_type": "INTERVAL_END", "key": "init_stop", "value": null, "metadata": {"file": "train.py", "lineno": 455}}
+:::MLLOG {"namespace": "", "time_ms": 1665626947701, "event_type": "INTERVAL_START", "key": "run_start", "value": null, "metadata": {"file": "train.py", "lineno": 459}}
+:::MLLOG {"namespace": "", "time_ms": 1665626947702, "event_type": "POINT_IN_TIME", "key": "train_samples", "value": 4572, "metadata": {"file": "train.py", "lineno": 486}}
+:::MLLOG {"namespace": "", "time_ms": 1665626948610, "event_type": "POINT_IN_TIME", "key": "eval_samples", "value": 97, "metadata": {"file": "train.py", "lineno": 526}}
+Running ...
+:::MLLOG {"namespace": "", "time_ms": 1665626948627, "event_type": "INTERVAL_START", "key": "epoch_start", "value": 0, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 161, "epoch_num": 0}}
+Epoch: [0]  [   0/4572]  eta: 0:22:21    time: 0.2934  data: 0.0004  max mem: 20783
+Epoch: [0]  [  20/4572]  eta: 0:21:59    time: 0.2897  data: 0.0027  max mem: 20783
+Epoch: [0]  [  40/4572]  eta: 0:21:44    time: 0.2855  data: 0.0018  max mem: 20783
+Epoch: [0]  [  60/4572]  eta: 0:21:33    time: 0.2842  data: 0.0011  max mem: 20783
+Epoch: [0]  [  80/4572]  eta: 0:21:26    time: 0.2859  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 100/4572]  eta: 0:21:18    time: 0.2837  data: 0.0010  max mem: 20783
+Epoch: [0]  [ 120/4572]  eta: 0:21:11    time: 0.2839  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 140/4572]  eta: 0:21:04    time: 0.2839  data: 0.0010  max mem: 20783
+Epoch: [0]  [ 160/4572]  eta: 0:20:58    time: 0.2839  data: 0.0017  max mem: 20783
+Epoch: [0]  [ 180/4572]  eta: 0:20:51    time: 0.2834  data: 0.0009  max mem: 20783
+Epoch: [0]  [ 200/4572]  eta: 0:20:45    time: 0.2839  data: 0.0009  max mem: 20783
+Epoch: [0]  [ 220/4572]  eta: 0:20:38    time: 0.2827  data: 0.0010  max mem: 20783
+Epoch: [0]  [ 240/4572]  eta: 0:20:32    time: 0.2839  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 260/4572]  eta: 0:20:26    time: 0.2826  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 280/4572]  eta: 0:20:20    time: 0.2831  data: 0.0007  max mem: 20783
+Epoch: [0]  [ 300/4572]  eta: 0:20:14    time: 0.2829  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 320/4572]  eta: 0:20:08    time: 0.2835  data: 0.0011  max mem: 20783
+Epoch: [0]  [ 340/4572]  eta: 0:20:02    time: 0.2837  data: 0.0010  max mem: 20783
+Epoch: [0]  [ 360/4572]  eta: 0:19:56    time: 0.2837  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 380/4572]  eta: 0:19:50    time: 0.2834  data: 0.0009  max mem: 20783
+Epoch: [0]  [ 400/4572]  eta: 0:19:45    time: 0.2837  data: 0.0011  max mem: 20783
+Epoch: [0]  [ 420/4572]  eta: 0:19:39    time: 0.2838  data: 0.0013  max mem: 20783
+Epoch: [0]  [ 440/4572]  eta: 0:19:33    time: 0.2836  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 460/4572]  eta: 0:19:28    time: 0.2854  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 480/4572]  eta: 0:19:22    time: 0.2837  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 500/4572]  eta: 0:19:16    time: 0.2837  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 520/4572]  eta: 0:19:11    time: 0.2837  data: 0.0010  max mem: 20783
+Epoch: [0]  [ 540/4572]  eta: 0:19:05    time: 0.2831  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 560/4572]  eta: 0:18:59    time: 0.2834  data: 0.0007  max mem: 20783
+Epoch: [0]  [ 580/4572]  eta: 0:18:53    time: 0.2839  data: 0.0007  max mem: 20783
+Epoch: [0]  [ 600/4572]  eta: 0:18:47    time: 0.2835  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 620/4572]  eta: 0:18:42    time: 0.2836  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 640/4572]  eta: 0:18:36    time: 0.2832  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 660/4572]  eta: 0:18:30    time: 0.2840  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 680/4572]  eta: 0:18:25    time: 0.2831  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 700/4572]  eta: 0:18:19    time: 0.2833  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 720/4572]  eta: 0:18:13    time: 0.2834  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 740/4572]  eta: 0:18:07    time: 0.2832  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 760/4572]  eta: 0:18:02    time: 0.2839  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 780/4572]  eta: 0:17:56    time: 0.2829  data: 0.0010  max mem: 20783
+Epoch: [0]  [ 800/4572]  eta: 0:17:50    time: 0.2834  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 820/4572]  eta: 0:17:44    time: 0.2833  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 840/4572]  eta: 0:17:39    time: 0.2832  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 860/4572]  eta: 0:17:33    time: 0.2833  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 880/4572]  eta: 0:17:27    time: 0.2835  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 900/4572]  eta: 0:17:22    time: 0.2836  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 920/4572]  eta: 0:17:16    time: 0.2832  data: 0.0013  max mem: 20783
+Epoch: [0]  [ 940/4572]  eta: 0:17:10    time: 0.2837  data: 0.0012  max mem: 20783
+Epoch: [0]  [ 960/4572]  eta: 0:17:04    time: 0.2831  data: 0.0008  max mem: 20783
+Epoch: [0]  [ 980/4572]  eta: 0:16:59    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [0]  [1000/4572]  eta: 0:16:53    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [0]  [1020/4572]  eta: 0:16:47    time: 0.2830  data: 0.0009  max mem: 20783
+Epoch: [0]  [1040/4572]  eta: 0:16:41    time: 0.2829  data: 0.0008  max mem: 20783
+Epoch: [0]  [1060/4572]  eta: 0:16:36    time: 0.2832  data: 0.0008  max mem: 20783
+Epoch: [0]  [1080/4572]  eta: 0:16:30    time: 0.2829  data: 0.0008  max mem: 20783
+Epoch: [0]  [1100/4572]  eta: 0:16:24    time: 0.2836  data: 0.0008  max mem: 20783
+Epoch: [0]  [1120/4572]  eta: 0:16:19    time: 0.2838  data: 0.0007  max mem: 20783
+Epoch: [0]  [1140/4572]  eta: 0:16:13    time: 0.2832  data: 0.0007  max mem: 20783
+Epoch: [0]  [1160/4572]  eta: 0:16:07    time: 0.2835  data: 0.0008  max mem: 20783
+Epoch: [0]  [1180/4572]  eta: 0:16:02    time: 0.2831  data: 0.0008  max mem: 20783
+Epoch: [0]  [1200/4572]  eta: 0:15:56    time: 0.2831  data: 0.0010  max mem: 20783
+Epoch: [0]  [1220/4572]  eta: 0:15:50    time: 0.2831  data: 0.0010  max mem: 20783
+Epoch: [0]  [1240/4572]  eta: 0:15:44    time: 0.2829  data: 0.0014  max mem: 20783
+Epoch: [0]  [1260/4572]  eta: 0:15:39    time: 0.2824  data: 0.0012  max mem: 20783
+Epoch: [0]  [1280/4572]  eta: 0:15:33    time: 0.2838  data: 0.0013  max mem: 20783
+Epoch: [0]  [1300/4572]  eta: 0:15:27    time: 0.2825  data: 0.0011  max mem: 20783
+Epoch: [0]  [1320/4572]  eta: 0:15:22    time: 0.2830  data: 0.0010  max mem: 20783
+Epoch: [0]  [1340/4572]  eta: 0:15:16    time: 0.2821  data: 0.0012  max mem: 20783
+Epoch: [0]  [1360/4572]  eta: 0:15:10    time: 0.2825  data: 0.0010  max mem: 20783
+Epoch: [0]  [1380/4572]  eta: 0:15:04    time: 0.2832  data: 0.0015  max mem: 20783
+Epoch: [0]  [1400/4572]  eta: 0:14:59    time: 0.2834  data: 0.0011  max mem: 20783
+Epoch: [0]  [1420/4572]  eta: 0:14:53    time: 0.2834  data: 0.0010  max mem: 20783
+Epoch: [0]  [1440/4572]  eta: 0:14:47    time: 0.2834  data: 0.0017  max mem: 20783
+Epoch: [0]  [1460/4572]  eta: 0:14:42    time: 0.2833  data: 0.0010  max mem: 20783
+Epoch: [0]  [1480/4572]  eta: 0:14:36    time: 0.2833  data: 0.0010  max mem: 20783
+Epoch: [0]  [1500/4572]  eta: 0:14:30    time: 0.2824  data: 0.0009  max mem: 20783
+Epoch: [0]  [1520/4572]  eta: 0:14:25    time: 0.2837  data: 0.0011  max mem: 20783
+Epoch: [0]  [1540/4572]  eta: 0:14:19    time: 0.2835  data: 0.0012  max mem: 20783
+Epoch: [0]  [1560/4572]  eta: 0:14:13    time: 0.2834  data: 0.0010  max mem: 20783
+Epoch: [0]  [1580/4572]  eta: 0:14:08    time: 0.2837  data: 0.0015  max mem: 20783
+Epoch: [0]  [1600/4572]  eta: 0:14:02    time: 0.2827  data: 0.0014  max mem: 20783
+Epoch: [0]  [1620/4572]  eta: 0:13:56    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [1640/4572]  eta: 0:13:51    time: 0.2825  data: 0.0010  max mem: 20783
+Epoch: [0]  [1660/4572]  eta: 0:13:45    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [1680/4572]  eta: 0:13:39    time: 0.2832  data: 0.0010  max mem: 20783
+Epoch: [0]  [1700/4572]  eta: 0:13:34    time: 0.2828  data: 0.0009  max mem: 20783
+Epoch: [0]  [1720/4572]  eta: 0:13:28    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [1740/4572]  eta: 0:13:22    time: 0.2834  data: 0.0011  max mem: 20783
+
+
+Epoch: [0]  [1760/4572]  eta: 0:13:16    time: 0.2825  data: 0.0010  max mem: 20783
+Epoch: [0]  [1780/4572]  eta: 0:13:11    time: 0.2829  data: 0.0015  max mem: 20783
+Epoch: [0]  [1800/4572]  eta: 0:13:05    time: 0.2830  data: 0.0011  max mem: 20783
+Epoch: [0]  [1820/4572]  eta: 0:12:59    time: 0.2829  data: 0.0011  max mem: 20783
+Epoch: [0]  [1840/4572]  eta: 0:12:54    time: 0.2822  data: 0.0011  max mem: 20783
+Epoch: [0]  [1860/4572]  eta: 0:12:48    time: 0.2828  data: 0.0011  max mem: 20783
+Epoch: [0]  [1880/4572]  eta: 0:12:42    time: 0.2831  data: 0.0011  max mem: 20783
+Epoch: [0]  [1900/4572]  eta: 0:12:37    time: 0.2836  data: 0.0011  max mem: 20783
+Epoch: [0]  [1920/4572]  eta: 0:12:31    time: 0.2829  data: 0.0011  max mem: 20783
+Epoch: [0]  [1940/4572]  eta: 0:12:25    time: 0.2823  data: 0.0012  max mem: 20783
+Epoch: [0]  [1960/4572]  eta: 0:12:20    time: 0.2824  data: 0.0011  max mem: 20783
+Epoch: [0]  [1980/4572]  eta: 0:12:14    time: 0.2822  data: 0.0010  max mem: 20783
+Epoch: [0]  [2000/4572]  eta: 0:12:08    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [2020/4572]  eta: 0:12:03    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [2040/4572]  eta: 0:11:57    time: 0.2828  data: 0.0011  max mem: 20783
+Epoch: [0]  [2060/4572]  eta: 0:11:51    time: 0.2828  data: 0.0010  max mem: 20783
+Epoch: [0]  [2080/4572]  eta: 0:11:46    time: 0.2831  data: 0.0011  max mem: 20783
+Epoch: [0]  [2100/4572]  eta: 0:11:40    time: 0.2827  data: 0.0010  max mem: 20783
+Epoch: [0]  [2120/4572]  eta: 0:11:34    time: 0.2835  data: 0.0010  max mem: 20783
+Epoch: [0]  [2140/4572]  eta: 0:11:29    time: 0.2824  data: 0.0010  max mem: 20783
+Epoch: [0]  [2160/4572]  eta: 0:11:23    time: 0.2825  data: 0.0010  max mem: 20783
+Epoch: [0]  [2180/4572]  eta: 0:11:17    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [2200/4572]  eta: 0:11:11    time: 0.2824  data: 0.0011  max mem: 20783
+Epoch: [0]  [2220/4572]  eta: 0:11:06    time: 0.2826  data: 0.0012  max mem: 20783
+Epoch: [0]  [2240/4572]  eta: 0:11:00    time: 0.2827  data: 0.0007  max mem: 20783
+Epoch: [0]  [2260/4572]  eta: 0:10:54    time: 0.2831  data: 0.0007  max mem: 20783
+Epoch: [0]  [2280/4572]  eta: 0:10:49    time: 0.2826  data: 0.0008  max mem: 20783
+Epoch: [0]  [2300/4572]  eta: 0:10:43    time: 0.2828  data: 0.0007  max mem: 20783
+Epoch: [0]  [2320/4572]  eta: 0:10:37    time: 0.2826  data: 0.0011  max mem: 20783
+Epoch: [0]  [2340/4572]  eta: 0:10:32    time: 0.2834  data: 0.0007  max mem: 20783
+Epoch: [0]  [2360/4572]  eta: 0:10:26    time: 0.2828  data: 0.0007  max mem: 20783
+Epoch: [0]  [2380/4572]  eta: 0:10:20    time: 0.2827  data: 0.0007  max mem: 20783
+Epoch: [0]  [2400/4572]  eta: 0:10:15    time: 0.2826  data: 0.0010  max mem: 20783
+Epoch: [0]  [2420/4572]  eta: 0:10:09    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [0]  [2440/4572]  eta: 0:10:03    time: 0.2823  data: 0.0007  max mem: 20783
+Epoch: [0]  [2460/4572]  eta: 0:09:58    time: 0.2830  data: 0.0008  max mem: 20783
+Epoch: [0]  [2480/4572]  eta: 0:09:52    time: 0.2829  data: 0.0008  max mem: 20783
+Epoch: [0]  [2500/4572]  eta: 0:09:46    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [0]  [2520/4572]  eta: 0:09:41    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [0]  [2540/4572]  eta: 0:09:35    time: 0.2829  data: 0.0007  max mem: 20783
+Epoch: [0]  [2560/4572]  eta: 0:09:29    time: 0.2823  data: 0.0012  max mem: 20783
+Epoch: [0]  [2580/4572]  eta: 0:09:24    time: 0.2823  data: 0.0009  max mem: 20783
+Epoch: [0]  [2600/4572]  eta: 0:09:18    time: 0.2829  data: 0.0014  max mem: 20783
+Epoch: [0]  [2620/4572]  eta: 0:09:12    time: 0.2828  data: 0.0008  max mem: 20783
+Epoch: [0]  [2640/4572]  eta: 0:09:07    time: 0.2830  data: 0.0008  max mem: 20783
+Epoch: [0]  [2660/4572]  eta: 0:09:01    time: 0.2827  data: 0.0008  max mem: 20783
+Epoch: [0]  [2680/4572]  eta: 0:08:55    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [2700/4572]  eta: 0:08:50    time: 0.2830  data: 0.0008  max mem: 20783
+Epoch: [0]  [2720/4572]  eta: 0:08:44    time: 0.2826  data: 0.0021  max mem: 20783
+Epoch: [0]  [2740/4572]  eta: 0:08:38    time: 0.2827  data: 0.0010  max mem: 20783
+Epoch: [0]  [2760/4572]  eta: 0:08:33    time: 0.2828  data: 0.0009  max mem: 20783
+Epoch: [0]  [2780/4572]  eta: 0:08:27    time: 0.2821  data: 0.0010  max mem: 20783
+Epoch: [0]  [2800/4572]  eta: 0:08:21    time: 0.2827  data: 0.0012  max mem: 20783
+Epoch: [0]  [2820/4572]  eta: 0:08:16    time: 0.2821  data: 0.0011  max mem: 20783
+Epoch: [0]  [2840/4572]  eta: 0:08:10    time: 0.2827  data: 0.0009  max mem: 20783
+Epoch: [0]  [2860/4572]  eta: 0:08:04    time: 0.2827  data: 0.0011  max mem: 20783
+Epoch: [0]  [2880/4572]  eta: 0:07:59    time: 0.2819  data: 0.0007  max mem: 20783
+Epoch: [0]  [2900/4572]  eta: 0:07:53    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [0]  [2920/4572]  eta: 0:07:47    time: 0.2818  data: 0.0007  max mem: 20783
+Epoch: [0]  [2940/4572]  eta: 0:07:42    time: 0.2822  data: 0.0007  max mem: 20783
+Epoch: [0]  [2960/4572]  eta: 0:07:36    time: 0.2829  data: 0.0010  max mem: 20783
+Epoch: [0]  [2980/4572]  eta: 0:07:30    time: 0.2818  data: 0.0009  max mem: 20783
+Epoch: [0]  [3000/4572]  eta: 0:07:25    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [0]  [3020/4572]  eta: 0:07:19    time: 0.2825  data: 0.0010  max mem: 20783
+Epoch: [0]  [3040/4572]  eta: 0:07:13    time: 0.2822  data: 0.0011  max mem: 20783
+Epoch: [0]  [3060/4572]  eta: 0:07:08    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [0]  [3080/4572]  eta: 0:07:02    time: 0.2823  data: 0.0007  max mem: 20783
+Epoch: [0]  [3100/4572]  eta: 0:06:56    time: 0.2825  data: 0.0012  max mem: 20783
+Epoch: [0]  [3120/4572]  eta: 0:06:51    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [0]  [3140/4572]  eta: 0:06:45    time: 0.2822  data: 0.0007  max mem: 20783
+Epoch: [0]  [3160/4572]  eta: 0:06:39    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [0]  [3180/4572]  eta: 0:06:33    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [0]  [3200/4572]  eta: 0:06:28    time: 0.2817  data: 0.0007  max mem: 20783
+Epoch: [0]  [3220/4572]  eta: 0:06:22    time: 0.2820  data: 0.0009  max mem: 20783
+Epoch: [0]  [3240/4572]  eta: 0:06:16    time: 0.2815  data: 0.0009  max mem: 20783
+Epoch: [0]  [3260/4572]  eta: 0:06:11    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [0]  [3280/4572]  eta: 0:06:05    time: 0.2815  data: 0.0011  max mem: 20783
+Epoch: [0]  [3300/4572]  eta: 0:05:59    time: 0.2814  data: 0.0010  max mem: 20783
+Epoch: [0]  [3320/4572]  eta: 0:05:54    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [3340/4572]  eta: 0:05:48    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [3360/4572]  eta: 0:05:42    time: 0.2820  data: 0.0007  max mem: 20783
+Epoch: [0]  [3380/4572]  eta: 0:05:37    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [0]  [3400/4572]  eta: 0:05:31    time: 0.2819  data: 0.0007  max mem: 20783
+Epoch: [0]  [3420/4572]  eta: 0:05:25    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [0]  [3440/4572]  eta: 0:05:20    time: 0.2818  data: 0.0007  max mem: 20783
+Epoch: [0]  [3460/4572]  eta: 0:05:14    time: 0.2824  data: 0.0010  max mem: 20783
+Epoch: [0]  [3480/4572]  eta: 0:05:08    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [0]  [3500/4572]  eta: 0:05:03    time: 0.2816  data: 0.0009  max mem: 20783
+Epoch: [0]  [3520/4572]  eta: 0:04:57    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [3540/4572]  eta: 0:04:51    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [0]  [3560/4572]  eta: 0:04:46    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [0]  [3580/4572]  eta: 0:04:40    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [0]  [3600/4572]  eta: 0:04:34    time: 0.2820  data: 0.0010  max mem: 20783
+Epoch: [0]  [3620/4572]  eta: 0:04:29    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [0]  [3640/4572]  eta: 0:04:23    time: 0.2819  data: 0.0009  max mem: 20783
+Epoch: [0]  [3660/4572]  eta: 0:04:17    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [0]  [3680/4572]  eta: 0:04:12    time: 0.2827  data: 0.0009  max mem: 20783
+Epoch: [0]  [3700/4572]  eta: 0:04:06    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [0]  [3720/4572]  eta: 0:04:01    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [0]  [3740/4572]  eta: 0:03:55    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [3760/4572]  eta: 0:03:49    time: 0.2815  data: 0.0009  max mem: 20783
+Epoch: [0]  [3780/4572]  eta: 0:03:44    time: 0.2825  data: 0.0008  max mem: 20783
+Epoch: [0]  [3800/4572]  eta: 0:03:38    time: 0.2822  data: 0.0009  max mem: 20783
+Epoch: [0]  [3820/4572]  eta: 0:03:32    time: 0.2821  data: 0.0012  max mem: 20783
+Epoch: [0]  [3840/4572]  eta: 0:03:27    time: 0.2816  data: 0.0010  max mem: 20783
+Epoch: [0]  [3860/4572]  eta: 0:03:21    time: 0.2823  data: 0.0009  max mem: 20783
+Epoch: [0]  [3880/4572]  eta: 0:03:15    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [0]  [3900/4572]  eta: 0:03:10    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [0]  [3920/4572]  eta: 0:03:04    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [3940/4572]  eta: 0:02:58    time: 0.2819  data: 0.0009  max mem: 20783
+Epoch: [0]  [3960/4572]  eta: 0:02:53    time: 0.2818  data: 0.0009  max mem: 20783
+Epoch: [0]  [3980/4572]  eta: 0:02:47    time: 0.2819  data: 0.0013  max mem: 20783
+Epoch: [0]  [4000/4572]  eta: 0:02:41    time: 0.2818  data: 0.0012  max mem: 20783
+Epoch: [0]  [4020/4572]  eta: 0:02:36    time: 0.2817  data: 0.0010  max mem: 20783
+Epoch: [0]  [4040/4572]  eta: 0:02:30    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [0]  [4060/4572]  eta: 0:02:24    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [0]  [4080/4572]  eta: 0:02:19    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [0]  [4100/4572]  eta: 0:02:13    time: 0.2816  data: 0.0010  max mem: 20783
+Epoch: [0]  [4120/4572]  eta: 0:02:07    time: 0.2819  data: 0.0010  max mem: 20783
+Epoch: [0]  [4140/4572]  eta: 0:02:02    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [0]  [4160/4572]  eta: 0:01:56    time: 0.2818  data: 0.0010  max mem: 20783
+Epoch: [0]  [4180/4572]  eta: 0:01:50    time: 0.2820  data: 0.0010  max mem: 20783
+Epoch: [0]  [4200/4572]  eta: 0:01:45    time: 0.2822  data: 0.0014  max mem: 20783
+Epoch: [0]  [4220/4572]  eta: 0:01:39    time: 0.2820  data: 0.0009  max mem: 20783
+Epoch: [0]  [4240/4572]  eta: 0:01:33    time: 0.2819  data: 0.0009  max mem: 20783
+Epoch: [0]  [4260/4572]  eta: 0:01:28    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [0]  [4280/4572]  eta: 0:01:22    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [0]  [4300/4572]  eta: 0:01:16    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [0]  [4320/4572]  eta: 0:01:11    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [4340/4572]  eta: 0:01:05    time: 0.2819  data: 0.0007  max mem: 20783
+Epoch: [0]  [4360/4572]  eta: 0:00:59    time: 0.2825  data: 0.0013  max mem: 20783
+Epoch: [0]  [4380/4572]  eta: 0:00:54    time: 0.2822  data: 0.0013  max mem: 20783
+Epoch: [0]  [4400/4572]  eta: 0:00:48    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [0]  [4420/4572]  eta: 0:00:42    time: 0.2823  data: 0.0013  max mem: 20783
+Epoch: [0]  [4440/4572]  eta: 0:00:37    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [0]  [4460/4572]  eta: 0:00:31    time: 0.2819  data: 0.0009  max mem: 20783
+Epoch: [0]  [4480/4572]  eta: 0:00:26    time: 0.2814  data: 0.0010  max mem: 20783
+Epoch: [0]  [4500/4572]  eta: 0:00:20    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [0]  [4520/4572]  eta: 0:00:14    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [0]  [4540/4572]  eta: 0:00:09    time: 0.2817  data: 0.0012  max mem: 20783
+Epoch: [0]  [4560/4572]  eta: 0:00:03    time: 0.2818  data: 0.0010  max mem: 20783
+Epoch: [0]  [4571/4572]  eta: 0:00:00    time: 0.2820  data: 0.0009  max mem: 20783
+Epoch: [0] Total time: 0:21:32 (0.2828 s / it)
+:::MLLOG {"namespace": "", "time_ms": 1665628241221, "event_type": "INTERVAL_END", "key": "epoch_stop", "value": 0, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 328, "epoch_num": 0}}
+:::MLLOG {"namespace": "", "time_ms": 1665628241222, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 113.18657219116592}, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 332, "step": 1}}
+:::MLLOG {"namespace": "", "time_ms": 1665628241223, "event_type": "INTERVAL_START", "key": "eval_start", "value": 1, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 340, "epoch_num": 1}}
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+Test:  [ 0/97]  eta: 0:00:51  model_time: 0.5303 (0.5303)  evaluator_time: 0.0045 (0.0045)  time: 0.5354  data: 0.0005  max mem: 20783
+/workspace/ssd/model/transform.py:211: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  torch.tensor(s, dtype=torch.float32, device=boxes.device) /
+Test:  [20/97]  eta: 0:00:38  model_time: 0.4842 (0.4859)  evaluator_time: 0.0050 (0.0069)  time: 0.4915  data: 0.0007  max mem: 20783
+Test:  [40/97]  eta: 0:00:27  model_time: 0.4764 (0.4826)  evaluator_time: 0.0049 (0.0059)  time: 0.4848  data: 0.0007  max mem: 20783
+Test:  [60/97]  eta: 0:00:18  model_time: 0.4945 (0.4848)  evaluator_time: 0.0048 (0.0062)  time: 0.4971  data: 0.0007  max mem: 20783
+Test:  [80/97]  eta: 0:00:08  model_time: 0.4852 (0.4839)  evaluator_time: 0.0047 (0.0065)  time: 0.4892  data: 0.0007  max mem: 20783
+Test:  [96/97]  eta: 0:00:00  model_time: 0.4863 (0.4833)  evaluator_time: 0.0049 (0.0062)  time: 0.4906  data: 0.0007  max mem: 20783
+Test: Total time: 0:00:47 (0.4903 s / it)
+Averaged stats: model_time: 0.4863 (0.4828)  evaluator_time: 0.0049 (0.0067)
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+:::MLLOG {"namespace": "", "time_ms": 1665628291250, "event_type": "INTERVAL_START", "key": "epoch_start", "value": 1, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 161, "epoch_num": 1}}
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+Epoch: [1]  [   0/4571]  eta: 0:20:53    time: 0.2743  data: 0.0016  max mem: 20783
+
+/opt/conda/lib/python3.8/site-packages/torch/jit/annotations.py:299: UserWarning: TorchScript will treat type annotations of Tensor dtype-specific subtypes as if they are normal Tensors. dtype constraints are not enforced in compilation either.
+  warnings.warn("TorchScript will treat type annotations of Tensor "
+Loading annotations into memory...
+Done (t=0.82s)
+Creating index...
+Done (t=1.01s)
+Loading and preparing results...
+Epoch: [1]  [  20/4571]  eta: 0:21:11    time: 0.2796  data: 0.0008  max mem: 20783
+DONE (t=2.96s)
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.64s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.24524
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.37187
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.26097
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.00525
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.05938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.27136
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.36487
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.52169
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.54500
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.02152
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.20467
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.59520
+:::MLLOG {"namespace": "", "time_ms": 1665628300195, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.2452392992716191, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 426, "epoch_num": 1}}
+:::MLLOG {"namespace": "", "time_ms": 1665628300195, "event_type": "INTERVAL_END", "key": "eval_stop", "value": 1, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 427, "epoch_num": 1}}
+Epoch: [1]  [  40/4571]  eta: 0:21:06    time: 0.2796  data: 0.0012  max mem: 20783
+Epoch: [1]  [  60/4571]  eta: 0:21:02    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [1]  [  80/4571]  eta: 0:20:57    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 100/4571]  eta: 0:20:52    time: 0.2803  data: 0.0012  max mem: 20783
+Epoch: [1]  [ 120/4571]  eta: 0:20:46    time: 0.2805  data: 0.0009  max mem: 20783
+Epoch: [1]  [ 140/4571]  eta: 0:20:41    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 160/4571]  eta: 0:20:36    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 180/4571]  eta: 0:20:31    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 200/4571]  eta: 0:20:26    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 220/4571]  eta: 0:20:21    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 240/4571]  eta: 0:20:16    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 260/4571]  eta: 0:20:10    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 280/4571]  eta: 0:20:04    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 300/4571]  eta: 0:19:59    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 320/4571]  eta: 0:19:54    time: 0.2814  data: 0.0010  max mem: 20783
+Epoch: [1]  [ 340/4571]  eta: 0:19:48    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [1]  [ 360/4571]  eta: 0:19:43    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 380/4571]  eta: 0:19:37    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 400/4571]  eta: 0:19:32    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 420/4571]  eta: 0:19:26    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 440/4571]  eta: 0:19:21    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 460/4571]  eta: 0:19:15    time: 0.2814  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 480/4571]  eta: 0:19:10    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 500/4571]  eta: 0:19:04    time: 0.2812  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 520/4571]  eta: 0:18:58    time: 0.2813  data: 0.0011  max mem: 20783
+Epoch: [1]  [ 540/4571]  eta: 0:18:53    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 560/4571]  eta: 0:18:47    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 580/4571]  eta: 0:18:42    time: 0.2812  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 600/4571]  eta: 0:18:36    time: 0.2820  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 620/4571]  eta: 0:18:31    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 640/4571]  eta: 0:18:25    time: 0.2821  data: 0.0009  max mem: 20783
+Epoch: [1]  [ 660/4571]  eta: 0:18:20    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 680/4571]  eta: 0:18:14    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 700/4571]  eta: 0:18:08    time: 0.2813  data: 0.0010  max mem: 20783
+Epoch: [1]  [ 720/4571]  eta: 0:18:03    time: 0.2822  data: 0.0009  max mem: 20783
+Epoch: [1]  [ 740/4571]  eta: 0:17:57    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 760/4571]  eta: 0:17:52    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 780/4571]  eta: 0:17:46    time: 0.2816  data: 0.0008  max mem: 20783
+
+Epoch: [1]  [ 800/4571]  eta: 0:17:40    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 820/4571]  eta: 0:17:35    time: 0.2844  data: 0.0008  max mem: 20783
+Epoch: [1]  [ 840/4571]  eta: 0:17:29    time: 0.2820  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 860/4571]  eta: 0:17:24    time: 0.2820  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 880/4571]  eta: 0:17:18    time: 0.2812  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 900/4571]  eta: 0:17:13    time: 0.2815  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 920/4571]  eta: 0:17:07    time: 0.2815  data: 0.0011  max mem: 20783
+Epoch: [1]  [ 940/4571]  eta: 0:17:01    time: 0.2818  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 960/4571]  eta: 0:16:56    time: 0.2815  data: 0.0007  max mem: 20783
+Epoch: [1]  [ 980/4571]  eta: 0:16:50    time: 0.2819  data: 0.0007  max mem: 20783
+Epoch: [1]  [1000/4571]  eta: 0:16:45    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [1020/4571]  eta: 0:16:39    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [1]  [1040/4571]  eta: 0:16:33    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [1060/4571]  eta: 0:16:28    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [1080/4571]  eta: 0:16:22    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [1100/4571]  eta: 0:16:17    time: 0.2816  data: 0.0011  max mem: 20783
+Epoch: [1]  [1120/4571]  eta: 0:16:11    time: 0.2815  data: 0.0007  max mem: 20783
+Epoch: [1]  [1140/4571]  eta: 0:16:05    time: 0.2817  data: 0.0007  max mem: 20783
+Epoch: [1]  [1160/4571]  eta: 0:16:00    time: 0.2818  data: 0.0007  max mem: 20783
+Epoch: [1]  [1180/4571]  eta: 0:15:54    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [1]  [1200/4571]  eta: 0:15:48    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [1220/4571]  eta: 0:15:43    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [1]  [1240/4571]  eta: 0:15:37    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [1]  [1260/4571]  eta: 0:15:31    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [1]  [1280/4571]  eta: 0:15:26    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [1300/4571]  eta: 0:15:20    time: 0.2815  data: 0.0007  max mem: 20783
+Epoch: [1]  [1320/4571]  eta: 0:15:15    time: 0.2819  data: 0.0007  max mem: 20783
+Epoch: [1]  [1340/4571]  eta: 0:15:09    time: 0.2817  data: 0.0007  max mem: 20783
+Epoch: [1]  [1360/4571]  eta: 0:15:03    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [1]  [1380/4571]  eta: 0:14:58    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [1400/4571]  eta: 0:14:52    time: 0.2814  data: 0.0007  max mem: 20783
+Epoch: [1]  [1420/4571]  eta: 0:14:46    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [1]  [1440/4571]  eta: 0:14:41    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [1460/4571]  eta: 0:14:35    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [1]  [1480/4571]  eta: 0:14:30    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [1500/4571]  eta: 0:14:24    time: 0.2821  data: 0.0009  max mem: 20783
+Epoch: [1]  [1520/4571]  eta: 0:14:18    time: 0.2812  data: 0.0009  max mem: 20783
+Epoch: [1]  [1540/4571]  eta: 0:14:13    time: 0.2817  data: 0.0009  max mem: 20783
+Epoch: [1]  [1560/4571]  eta: 0:14:07    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [1580/4571]  eta: 0:14:01    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [1600/4571]  eta: 0:13:56    time: 0.2815  data: 0.0009  max mem: 20783
+Epoch: [1]  [1620/4571]  eta: 0:13:50    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [1]  [1640/4571]  eta: 0:13:45    time: 0.2813  data: 0.0010  max mem: 20783
+Epoch: [1]  [1660/4571]  eta: 0:13:39    time: 0.2809  data: 0.0010  max mem: 20783
+Epoch: [1]  [1680/4571]  eta: 0:13:33    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [1700/4571]  eta: 0:13:28    time: 0.2814  data: 0.0007  max mem: 20783
+Epoch: [1]  [1720/4571]  eta: 0:13:22    time: 0.2816  data: 0.0009  max mem: 20783
+Epoch: [1]  [1740/4571]  eta: 0:13:16    time: 0.2817  data: 0.0009  max mem: 20783
+Epoch: [1]  [1760/4571]  eta: 0:13:11    time: 0.2819  data: 0.0009  max mem: 20783
+Epoch: [1]  [1780/4571]  eta: 0:13:05    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [1800/4571]  eta: 0:13:00    time: 0.2816  data: 0.0014  max mem: 20783
+Epoch: [1]  [1820/4571]  eta: 0:12:54    time: 0.2813  data: 0.0009  max mem: 20783
+Epoch: [1]  [1840/4571]  eta: 0:12:48    time: 0.2809  data: 0.0009  max mem: 20783
+Epoch: [1]  [1860/4571]  eta: 0:12:43    time: 0.2811  data: 0.0009  max mem: 20783
+Epoch: [1]  [1880/4571]  eta: 0:12:37    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [1900/4571]  eta: 0:12:31    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [1920/4571]  eta: 0:12:26    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [1940/4571]  eta: 0:12:20    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [1960/4571]  eta: 0:12:14    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [1980/4571]  eta: 0:12:09    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [2000/4571]  eta: 0:12:03    time: 0.2817  data: 0.0010  max mem: 20783
+Epoch: [1]  [2020/4571]  eta: 0:11:58    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [2040/4571]  eta: 0:11:52    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [2060/4571]  eta: 0:11:46    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [2080/4571]  eta: 0:11:41    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [2100/4571]  eta: 0:11:35    time: 0.2817  data: 0.0011  max mem: 20783
+Epoch: [1]  [2120/4571]  eta: 0:11:29    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [2140/4571]  eta: 0:11:24    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [2160/4571]  eta: 0:11:18    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [2180/4571]  eta: 0:11:13    time: 0.2820  data: 0.0014  max mem: 20783
+Epoch: [1]  [2200/4571]  eta: 0:11:07    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [2220/4571]  eta: 0:11:01    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [2240/4571]  eta: 0:10:56    time: 0.2824  data: 0.0007  max mem: 20783
+Epoch: [1]  [2260/4571]  eta: 0:10:50    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [2280/4571]  eta: 0:10:44    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [2300/4571]  eta: 0:10:39    time: 0.2825  data: 0.0008  max mem: 20783
+Epoch: [1]  [2320/4571]  eta: 0:10:33    time: 0.2827  data: 0.0008  max mem: 20783
+Epoch: [1]  [2340/4571]  eta: 0:10:28    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [2360/4571]  eta: 0:10:22    time: 0.2829  data: 0.0013  max mem: 20783
+Epoch: [1]  [2380/4571]  eta: 0:10:16    time: 0.2828  data: 0.0008  max mem: 20783
+Epoch: [1]  [2400/4571]  eta: 0:10:11    time: 0.2822  data: 0.0009  max mem: 20783
+Epoch: [1]  [2420/4571]  eta: 0:10:05    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [2440/4571]  eta: 0:10:00    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [2460/4571]  eta: 0:09:54    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [2480/4571]  eta: 0:09:48    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [2500/4571]  eta: 0:09:43    time: 0.2826  data: 0.0008  max mem: 20783
+Epoch: [1]  [2520/4571]  eta: 0:09:37    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [2540/4571]  eta: 0:09:31    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [2560/4571]  eta: 0:09:26    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [2580/4571]  eta: 0:09:20    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [2600/4571]  eta: 0:09:15    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [2620/4571]  eta: 0:09:09    time: 0.2827  data: 0.0008  max mem: 20783
+Epoch: [1]  [2640/4571]  eta: 0:09:03    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [2660/4571]  eta: 0:08:58    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [2680/4571]  eta: 0:08:52    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [2700/4571]  eta: 0:08:46    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [2720/4571]  eta: 0:08:41    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [2740/4571]  eta: 0:08:35    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [2760/4571]  eta: 0:08:30    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [2780/4571]  eta: 0:08:24    time: 0.2821  data: 0.0011  max mem: 20783
+Epoch: [1]  [2800/4571]  eta: 0:08:18    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [2820/4571]  eta: 0:08:13    time: 0.2826  data: 0.0008  max mem: 20783
+Epoch: [1]  [2840/4571]  eta: 0:08:07    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [2860/4571]  eta: 0:08:01    time: 0.2827  data: 0.0008  max mem: 20783
+Epoch: [1]  [2880/4571]  eta: 0:07:56    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [2900/4571]  eta: 0:07:50    time: 0.2824  data: 0.0009  max mem: 20783
+Epoch: [1]  [2920/4571]  eta: 0:07:45    time: 0.2825  data: 0.0009  max mem: 20783
+Epoch: [1]  [2940/4571]  eta: 0:07:39    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [2960/4571]  eta: 0:07:33    time: 0.2826  data: 0.0008  max mem: 20783
+Epoch: [1]  [2980/4571]  eta: 0:07:28    time: 0.2828  data: 0.0008  max mem: 20783
+Epoch: [1]  [3000/4571]  eta: 0:07:22    time: 0.2827  data: 0.0008  max mem: 20783
+Epoch: [1]  [3020/4571]  eta: 0:07:16    time: 0.2831  data: 0.0008  max mem: 20783
+Epoch: [1]  [3040/4571]  eta: 0:07:11    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [3060/4571]  eta: 0:07:05    time: 0.2820  data: 0.0009  max mem: 20783
+Epoch: [1]  [3080/4571]  eta: 0:07:00    time: 0.2826  data: 0.0012  max mem: 20783
+Epoch: [1]  [3100/4571]  eta: 0:06:54    time: 0.2827  data: 0.0008  max mem: 20783
+Epoch: [1]  [3120/4571]  eta: 0:06:48    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [3140/4571]  eta: 0:06:43    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [3160/4571]  eta: 0:06:37    time: 0.2850  data: 0.0008  max mem: 20783
+Epoch: [1]  [3180/4571]  eta: 0:06:31    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [3200/4571]  eta: 0:06:26    time: 0.2844  data: 0.0011  max mem: 20783
+Epoch: [1]  [3220/4571]  eta: 0:06:20    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [3240/4571]  eta: 0:06:15    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [3260/4571]  eta: 0:06:09    time: 0.2823  data: 0.0012  max mem: 20783
+Epoch: [1]  [3280/4571]  eta: 0:06:03    time: 0.2820  data: 0.0010  max mem: 20783
+Epoch: [1]  [3300/4571]  eta: 0:05:58    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [3320/4571]  eta: 0:05:52    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [3340/4571]  eta: 0:05:46    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [3360/4571]  eta: 0:05:41    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [3380/4571]  eta: 0:05:35    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [3400/4571]  eta: 0:05:29    time: 0.2819  data: 0.0013  max mem: 20783
+Epoch: [1]  [3420/4571]  eta: 0:05:24    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [3440/4571]  eta: 0:05:18    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [3460/4571]  eta: 0:05:13    time: 0.2835  data: 0.0009  max mem: 20783
+Epoch: [1]  [3480/4571]  eta: 0:05:07    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [3500/4571]  eta: 0:05:01    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [3520/4571]  eta: 0:04:56    time: 0.2819  data: 0.0009  max mem: 20783
+Epoch: [1]  [3540/4571]  eta: 0:04:50    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [3560/4571]  eta: 0:04:44    time: 0.2825  data: 0.0008  max mem: 20783
+Epoch: [1]  [3580/4571]  eta: 0:04:39    time: 0.2823  data: 0.0007  max mem: 20783
+Epoch: [1]  [3600/4571]  eta: 0:04:33    time: 0.2821  data: 0.0010  max mem: 20783
+Epoch: [1]  [3620/4571]  eta: 0:04:28    time: 0.2822  data: 0.0010  max mem: 20783
+Epoch: [1]  [3640/4571]  eta: 0:04:22    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [3660/4571]  eta: 0:04:16    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [3680/4571]  eta: 0:04:11    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [3700/4571]  eta: 0:04:05    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [3720/4571]  eta: 0:03:59    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [3740/4571]  eta: 0:03:54    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [3760/4571]  eta: 0:03:48    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [3780/4571]  eta: 0:03:42    time: 0.2818  data: 0.0010  max mem: 20783
+Epoch: [1]  [3800/4571]  eta: 0:03:37    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [3820/4571]  eta: 0:03:31    time: 0.2821  data: 0.0007  max mem: 20783
+Epoch: [1]  [3840/4571]  eta: 0:03:26    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [3860/4571]  eta: 0:03:20    time: 0.2820  data: 0.0012  max mem: 20783
+Epoch: [1]  [3880/4571]  eta: 0:03:14    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [3900/4571]  eta: 0:03:09    time: 0.2816  data: 0.0009  max mem: 20783
+Epoch: [1]  [3920/4571]  eta: 0:03:03    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [3940/4571]  eta: 0:02:57    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [3960/4571]  eta: 0:02:52    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [3980/4571]  eta: 0:02:46    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [4000/4571]  eta: 0:02:40    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [4020/4571]  eta: 0:02:35    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [4040/4571]  eta: 0:02:29    time: 0.2816  data: 0.0009  max mem: 20783
+Epoch: [1]  [4060/4571]  eta: 0:02:24    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [4080/4571]  eta: 0:02:18    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [4100/4571]  eta: 0:02:12    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [1]  [4120/4571]  eta: 0:02:07    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [4140/4571]  eta: 0:02:01    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [1]  [4160/4571]  eta: 0:01:55    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [4180/4571]  eta: 0:01:50    time: 0.2818  data: 0.0009  max mem: 20783
+Epoch: [1]  [4200/4571]  eta: 0:01:44    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [4220/4571]  eta: 0:01:38    time: 0.2818  data: 0.0012  max mem: 20783
+Epoch: [1]  [4240/4571]  eta: 0:01:33    time: 0.2824  data: 0.0008  max mem: 20783
+Epoch: [1]  [4260/4571]  eta: 0:01:27    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [1]  [4280/4571]  eta: 0:01:22    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [4300/4571]  eta: 0:01:16    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [4320/4571]  eta: 0:01:10    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [1]  [4340/4571]  eta: 0:01:05    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [4360/4571]  eta: 0:00:59    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [1]  [4380/4571]  eta: 0:00:53    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [1]  [4400/4571]  eta: 0:00:48    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [1]  [4420/4571]  eta: 0:00:42    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [1]  [4440/4571]  eta: 0:00:36    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [1]  [4460/4571]  eta: 0:00:31    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [1]  [4480/4571]  eta: 0:00:25    time: 0.2822  data: 0.0008  max mem: 20783
+Epoch: [1]  [4500/4571]  eta: 0:00:20    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [4520/4571]  eta: 0:00:14    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [1]  [4540/4571]  eta: 0:00:08    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [1]  [4560/4571]  eta: 0:00:03    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [1]  [4570/4571]  eta: 0:00:00    time: 0.2820  data: 0.0009  max mem: 20783
+Epoch: [1] Total time: 0:21:28 (0.2818 s / it)
+:::MLLOG {"namespace": "", "time_ms": 1665629579514, "event_type": "INTERVAL_END", "key": "epoch_stop", "value": 1, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 328, "epoch_num": 1}}
+:::MLLOG {"namespace": "", "time_ms": 1665629579515, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 113.54230797489146}, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 332, "step": 2}}
+:::MLLOG {"namespace": "", "time_ms": 1665629579516, "event_type": "INTERVAL_START", "key": "eval_start", "value": 2, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 340, "epoch_num": 2}}
+Test:  [ 0/97]  eta: 0:00:43  model_time: 0.4400 (0.4400)  evaluator_time: 0.0052 (0.0052)  time: 0.4462  data: 0.0009  max mem: 20783
+Test:  [20/97]  eta: 0:00:35  model_time: 0.4497 (0.4527)  evaluator_time: 0.0052 (0.0085)  time: 0.4633  data: 0.0010  max mem: 20783
+Test:  [40/97]  eta: 0:00:26  model_time: 0.4518 (0.4539)  evaluator_time: 0.0051 (0.0082)  time: 0.4644  data: 0.0011  max mem: 20783
+Test:  [60/97]  eta: 0:00:17  model_time: 0.4678 (0.4593)  evaluator_time: 0.0049 (0.0080)  time: 0.4795  data: 0.0011  max mem: 20783
+Test:  [80/97]  eta: 0:00:07  model_time: 0.4584 (0.4591)  evaluator_time: 0.0049 (0.0073)  time: 0.4646  data: 0.0011  max mem: 20783
+Test:  [96/97]  eta: 0:00:00  model_time: 0.4647 (0.4593)  evaluator_time: 0.0049 (0.0075)  time: 0.4705  data: 0.0011  max mem: 20783
+Test: Total time: 0:00:45 (0.4682 s / it)
+Averaged stats: model_time: 0.4647 (0.4589)  evaluator_time: 0.0049 (0.0065)
+:::MLLOG {"namespace": "", "time_ms": 1665629626092, "event_type": "INTERVAL_START", "key": "epoch_start", "value": 2, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 161, "epoch_num": 2}}
+Loading and preparing results...
+Epoch: [2]  [   0/4572]  eta: 0:20:54    time: 0.2745  data: 0.0013  max mem: 20783
+DONE (t=2.81s)
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.81s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.29846
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.43278
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.32130
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.00648
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.08298
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.32985
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.39021
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.55788
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.58522
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.02924
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.23171
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.63600
+:::MLLOG {"namespace": "", "time_ms": 1665629631988, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.29845627592608204, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 426, "epoch_num": 2}}
+:::MLLOG {"namespace": "", "time_ms": 1665629631988, "event_type": "INTERVAL_END", "key": "eval_stop", "value": 2, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 427, "epoch_num": 2}}
+Epoch: [2]  [  20/4572]  eta: 0:21:11    time: 0.2795  data: 0.0008  max mem: 20783
+Epoch: [2]  [  40/4572]  eta: 0:21:05    time: 0.2793  data: 0.0008  max mem: 20783
+Epoch: [2]  [  60/4572]  eta: 0:21:00    time: 0.2798  data: 0.0008  max mem: 20783
+Epoch: [2]  [  80/4572]  eta: 0:20:55    time: 0.2800  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 100/4572]  eta: 0:20:51    time: 0.2807  data: 0.0012  max mem: 20783
+Epoch: [2]  [ 120/4572]  eta: 0:20:46    time: 0.2809  data: 0.0013  max mem: 20783
+Epoch: [2]  [ 140/4572]  eta: 0:20:40    time: 0.2802  data: 0.0010  max mem: 20783
+Epoch: [2]  [ 160/4572]  eta: 0:20:35    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 180/4572]  eta: 0:20:30    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 200/4572]  eta: 0:20:25    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 220/4572]  eta: 0:20:19    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 240/4572]  eta: 0:20:14    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 260/4572]  eta: 0:20:09    time: 0.2826  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 280/4572]  eta: 0:20:04    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 300/4572]  eta: 0:19:58    time: 0.2812  data: 0.0009  max mem: 20783
+Epoch: [2]  [ 320/4572]  eta: 0:19:53    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 340/4572]  eta: 0:19:47    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 360/4572]  eta: 0:19:42    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 380/4572]  eta: 0:19:36    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 400/4572]  eta: 0:19:31    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 420/4572]  eta: 0:19:25    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 440/4572]  eta: 0:19:20    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [2]  [ 460/4572]  eta: 0:19:14    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 480/4572]  eta: 0:19:09    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 500/4572]  eta: 0:19:03    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 520/4572]  eta: 0:18:58    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 540/4572]  eta: 0:18:52    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 560/4572]  eta: 0:18:47    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 580/4572]  eta: 0:18:41    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 600/4572]  eta: 0:18:36    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 620/4572]  eta: 0:18:30    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 640/4572]  eta: 0:18:25    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 660/4572]  eta: 0:18:19    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 680/4572]  eta: 0:18:13    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 700/4572]  eta: 0:18:08    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 720/4572]  eta: 0:18:02    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 740/4572]  eta: 0:17:57    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 760/4572]  eta: 0:17:51    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 780/4572]  eta: 0:17:45    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 800/4572]  eta: 0:17:40    time: 0.2813  data: 0.0009  max mem: 20783
+Epoch: [2]  [ 820/4572]  eta: 0:17:34    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 840/4572]  eta: 0:17:29    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 860/4572]  eta: 0:17:23    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [2]  [ 880/4572]  eta: 0:17:18    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 900/4572]  eta: 0:17:12    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 920/4572]  eta: 0:17:06    time: 0.2823  data: 0.0009  max mem: 20783
+Epoch: [2]  [ 940/4572]  eta: 0:17:01    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [ 960/4572]  eta: 0:16:55    time: 0.2816  data: 0.0012  max mem: 20783
+Epoch: [2]  [ 980/4572]  eta: 0:16:50    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [1000/4572]  eta: 0:16:44    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [2]  [1020/4572]  eta: 0:16:38    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1040/4572]  eta: 0:16:33    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [1060/4572]  eta: 0:16:27    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [1080/4572]  eta: 0:16:22    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [1100/4572]  eta: 0:16:16    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [1120/4572]  eta: 0:16:10    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [1140/4572]  eta: 0:16:05    time: 0.2821  data: 0.0009  max mem: 20783
+Epoch: [2]  [1160/4572]  eta: 0:15:59    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1180/4572]  eta: 0:15:54    time: 0.2813  data: 0.0009  max mem: 20783
+Epoch: [2]  [1200/4572]  eta: 0:15:48    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [1220/4572]  eta: 0:15:42    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [1240/4572]  eta: 0:15:37    time: 0.2811  data: 0.0009  max mem: 20783
+Epoch: [2]  [1260/4572]  eta: 0:15:31    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [1280/4572]  eta: 0:15:25    time: 0.2816  data: 0.0009  max mem: 20783
+Epoch: [2]  [1300/4572]  eta: 0:15:20    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [1320/4572]  eta: 0:15:14    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [2]  [1340/4572]  eta: 0:15:09    time: 0.2834  data: 0.0013  max mem: 20783
+Epoch: [2]  [1360/4572]  eta: 0:15:03    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [2]  [1380/4572]  eta: 0:14:57    time: 0.2812  data: 0.0009  max mem: 20783
+
+Epoch: [2]  [1400/4572]  eta: 0:14:52    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [1420/4572]  eta: 0:14:46    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1440/4572]  eta: 0:14:41    time: 0.2815  data: 0.0009  max mem: 20783
+Epoch: [2]  [1460/4572]  eta: 0:14:35    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [2]  [1480/4572]  eta: 0:14:29    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1500/4572]  eta: 0:14:24    time: 0.2822  data: 0.0014  max mem: 20783
+Epoch: [2]  [1520/4572]  eta: 0:14:18    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [1540/4572]  eta: 0:14:12    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [1560/4572]  eta: 0:14:07    time: 0.2811  data: 0.0011  max mem: 20783
+Epoch: [2]  [1580/4572]  eta: 0:14:01    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [2]  [1600/4572]  eta: 0:13:56    time: 0.2815  data: 0.0007  max mem: 20783
+Epoch: [2]  [1620/4572]  eta: 0:13:50    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1640/4572]  eta: 0:13:44    time: 0.2813  data: 0.0009  max mem: 20783
+Epoch: [2]  [1660/4572]  eta: 0:13:39    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [2]  [1680/4572]  eta: 0:13:33    time: 0.2818  data: 0.0007  max mem: 20783
+Epoch: [2]  [1700/4572]  eta: 0:13:28    time: 0.2821  data: 0.0008  max mem: 20783
+Epoch: [2]  [1720/4572]  eta: 0:13:22    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [2]  [1740/4572]  eta: 0:13:16    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [2]  [1760/4572]  eta: 0:13:11    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [2]  [1780/4572]  eta: 0:13:05    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [1800/4572]  eta: 0:12:59    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [1820/4572]  eta: 0:12:54    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1840/4572]  eta: 0:12:48    time: 0.2810  data: 0.0009  max mem: 20783
+Epoch: [2]  [1860/4572]  eta: 0:12:42    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [1880/4572]  eta: 0:12:37    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [1900/4572]  eta: 0:12:31    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [1920/4572]  eta: 0:12:26    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [1940/4572]  eta: 0:12:20    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [1960/4572]  eta: 0:12:14    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [1980/4572]  eta: 0:12:09    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [2000/4572]  eta: 0:12:03    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [2020/4572]  eta: 0:11:57    time: 0.2823  data: 0.0008  max mem: 20783
+Epoch: [2]  [2040/4572]  eta: 0:11:52    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [2060/4572]  eta: 0:11:46    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [2080/4572]  eta: 0:11:41    time: 0.2811  data: 0.0011  max mem: 20783
+Epoch: [2]  [2100/4572]  eta: 0:11:35    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [2]  [2120/4572]  eta: 0:11:29    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [2140/4572]  eta: 0:11:24    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [2160/4572]  eta: 0:11:18    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [2180/4572]  eta: 0:11:12    time: 0.2817  data: 0.0008  max mem: 20783
+Epoch: [2]  [2200/4572]  eta: 0:11:07    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [2220/4572]  eta: 0:11:01    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [2240/4572]  eta: 0:10:56    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [2260/4572]  eta: 0:10:50    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [2280/4572]  eta: 0:10:44    time: 0.2811  data: 0.0009  max mem: 20783
+Epoch: [2]  [2300/4572]  eta: 0:10:39    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [2320/4572]  eta: 0:10:33    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [2340/4572]  eta: 0:10:27    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [2360/4572]  eta: 0:10:22    time: 0.2818  data: 0.0008  max mem: 20783
+Epoch: [2]  [2380/4572]  eta: 0:10:16    time: 0.2818  data: 0.0013  max mem: 20783
+Epoch: [2]  [2400/4572]  eta: 0:10:11    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [2420/4572]  eta: 0:10:05    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [2]  [2440/4572]  eta: 0:09:59    time: 0.2816  data: 0.0007  max mem: 20783
+Epoch: [2]  [2460/4572]  eta: 0:09:54    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [2]  [2480/4572]  eta: 0:09:48    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [2]  [2500/4572]  eta: 0:09:42    time: 0.2814  data: 0.0007  max mem: 20783
+Epoch: [2]  [2520/4572]  eta: 0:09:37    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [2]  [2540/4572]  eta: 0:09:31    time: 0.2823  data: 0.0007  max mem: 20783
+Epoch: [2]  [2560/4572]  eta: 0:09:25    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [2]  [2580/4572]  eta: 0:09:20    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [2]  [2600/4572]  eta: 0:09:14    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [2]  [2620/4572]  eta: 0:09:09    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [2]  [2640/4572]  eta: 0:09:03    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [2]  [2660/4572]  eta: 0:08:57    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [2]  [2680/4572]  eta: 0:08:52    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [2]  [2700/4572]  eta: 0:08:46    time: 0.2812  data: 0.0007  max mem: 20783
+Epoch: [2]  [2720/4572]  eta: 0:08:40    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [2]  [2740/4572]  eta: 0:08:35    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [2]  [2760/4572]  eta: 0:08:29    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [2]  [2780/4572]  eta: 0:08:24    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [2]  [2800/4572]  eta: 0:08:18    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [2]  [2820/4572]  eta: 0:08:12    time: 0.2828  data: 0.0007  max mem: 20783
+Epoch: [2]  [2840/4572]  eta: 0:08:07    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [2]  [2860/4572]  eta: 0:08:01    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [2]  [2880/4572]  eta: 0:07:55    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [2]  [2900/4572]  eta: 0:07:50    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [2]  [2920/4572]  eta: 0:07:44    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [2]  [2940/4572]  eta: 0:07:39    time: 0.2808  data: 0.0009  max mem: 20783
+Epoch: [2]  [2960/4572]  eta: 0:07:33    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [2980/4572]  eta: 0:07:27    time: 0.2803  data: 0.0010  max mem: 20783
+Epoch: [2]  [3000/4572]  eta: 0:07:22    time: 0.2811  data: 0.0010  max mem: 20783
+Epoch: [2]  [3020/4572]  eta: 0:07:16    time: 0.2804  data: 0.0009  max mem: 20783
+Epoch: [2]  [3040/4572]  eta: 0:07:10    time: 0.2806  data: 0.0009  max mem: 20783
+Epoch: [2]  [3060/4572]  eta: 0:07:05    time: 0.2808  data: 0.0009  max mem: 20783
+Epoch: [2]  [3080/4572]  eta: 0:06:59    time: 0.2806  data: 0.0009  max mem: 20783
+Epoch: [2]  [3100/4572]  eta: 0:06:53    time: 0.2810  data: 0.0009  max mem: 20783
+Epoch: [2]  [3120/4572]  eta: 0:06:48    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3140/4572]  eta: 0:06:42    time: 0.2809  data: 0.0011  max mem: 20783
+Epoch: [2]  [3160/4572]  eta: 0:06:37    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [3180/4572]  eta: 0:06:31    time: 0.2803  data: 0.0008  max mem: 20783
+Epoch: [2]  [3200/4572]  eta: 0:06:25    time: 0.2811  data: 0.0010  max mem: 20783
+Epoch: [2]  [3220/4572]  eta: 0:06:20    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [3240/4572]  eta: 0:06:14    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [2]  [3260/4572]  eta: 0:06:08    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3280/4572]  eta: 0:06:03    time: 0.2811  data: 0.0014  max mem: 20783
+Epoch: [2]  [3300/4572]  eta: 0:05:57    time: 0.2807  data: 0.0011  max mem: 20783
+Epoch: [2]  [3320/4572]  eta: 0:05:52    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3340/4572]  eta: 0:05:46    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [3360/4572]  eta: 0:05:40    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [3380/4572]  eta: 0:05:35    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [3400/4572]  eta: 0:05:29    time: 0.2812  data: 0.0010  max mem: 20783
+Epoch: [2]  [3420/4572]  eta: 0:05:23    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [2]  [3440/4572]  eta: 0:05:18    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [2]  [3460/4572]  eta: 0:05:12    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3480/4572]  eta: 0:05:07    time: 0.2802  data: 0.0011  max mem: 20783
+Epoch: [2]  [3500/4572]  eta: 0:05:01    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [3520/4572]  eta: 0:04:55    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [2]  [3540/4572]  eta: 0:04:50    time: 0.2802  data: 0.0008  max mem: 20783
+Epoch: [2]  [3560/4572]  eta: 0:04:44    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [3580/4572]  eta: 0:04:38    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [3600/4572]  eta: 0:04:33    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [3620/4572]  eta: 0:04:27    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [3640/4572]  eta: 0:04:22    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [3660/4572]  eta: 0:04:16    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3680/4572]  eta: 0:04:10    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [2]  [3700/4572]  eta: 0:04:05    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [2]  [3720/4572]  eta: 0:03:59    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3740/4572]  eta: 0:03:53    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [3760/4572]  eta: 0:03:48    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [3780/4572]  eta: 0:03:42    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [3800/4572]  eta: 0:03:37    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [3820/4572]  eta: 0:03:31    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [3840/4572]  eta: 0:03:25    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [3860/4572]  eta: 0:03:20    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [3880/4572]  eta: 0:03:14    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [3900/4572]  eta: 0:03:08    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [2]  [3920/4572]  eta: 0:03:03    time: 0.2809  data: 0.0010  max mem: 20783
+Epoch: [2]  [3940/4572]  eta: 0:02:57    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [3960/4572]  eta: 0:02:52    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [3980/4572]  eta: 0:02:46    time: 0.2812  data: 0.0007  max mem: 20783
+Epoch: [2]  [4000/4572]  eta: 0:02:40    time: 0.2819  data: 0.0008  max mem: 20783
+Epoch: [2]  [4020/4572]  eta: 0:02:35    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [4040/4572]  eta: 0:02:29    time: 0.2818  data: 0.0009  max mem: 20783
+Epoch: [2]  [4060/4572]  eta: 0:02:23    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [4080/4572]  eta: 0:02:18    time: 0.2816  data: 0.0010  max mem: 20783
+Epoch: [2]  [4100/4572]  eta: 0:02:12    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [2]  [4120/4572]  eta: 0:02:07    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [2]  [4140/4572]  eta: 0:02:01    time: 0.2813  data: 0.0009  max mem: 20783
+Epoch: [2]  [4160/4572]  eta: 0:01:55    time: 0.2816  data: 0.0009  max mem: 20783
+Epoch: [2]  [4180/4572]  eta: 0:01:50    time: 0.2812  data: 0.0009  max mem: 20783
+Epoch: [2]  [4200/4572]  eta: 0:01:44    time: 0.2811  data: 0.0009  max mem: 20783
+Epoch: [2]  [4220/4572]  eta: 0:01:38    time: 0.2812  data: 0.0009  max mem: 20783
+Epoch: [2]  [4240/4572]  eta: 0:01:33    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [4260/4572]  eta: 0:01:27    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [4280/4572]  eta: 0:01:22    time: 0.2812  data: 0.0009  max mem: 20783
+Epoch: [2]  [4300/4572]  eta: 0:01:16    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [2]  [4320/4572]  eta: 0:01:10    time: 0.2820  data: 0.0008  max mem: 20783
+Epoch: [2]  [4340/4572]  eta: 0:01:05    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [4360/4572]  eta: 0:00:59    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [4380/4572]  eta: 0:00:53    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [4400/4572]  eta: 0:00:48    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [2]  [4420/4572]  eta: 0:00:42    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [2]  [4440/4572]  eta: 0:00:37    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [2]  [4460/4572]  eta: 0:00:31    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [2]  [4480/4572]  eta: 0:00:25    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [2]  [4500/4572]  eta: 0:00:20    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [2]  [4520/4572]  eta: 0:00:14    time: 0.2813  data: 0.0009  max mem: 20783
+Epoch: [2]  [4540/4572]  eta: 0:00:08    time: 0.2814  data: 0.0013  max mem: 20783
+Epoch: [2]  [4560/4572]  eta: 0:00:03    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [2]  [4571/4572]  eta: 0:00:00    time: 0.2813  data: 0.0010  max mem: 20783
+Epoch: [2] Total time: 0:21:25 (0.2813 s / it)
+:::MLLOG {"namespace": "", "time_ms": 1665630911784, "event_type": "INTERVAL_END", "key": "epoch_stop", "value": 2, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 328, "epoch_num": 2}}
+:::MLLOG {"namespace": "", "time_ms": 1665630911785, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 113.79719456218206}, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 332, "step": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1665630911786, "event_type": "INTERVAL_START", "key": "eval_start", "value": 3, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 340, "epoch_num": 3}}
+Test:  [ 0/97]  eta: 0:00:41  model_time: 0.4263 (0.4263)  evaluator_time: 0.0044 (0.0044)  time: 0.4319  data: 0.0010  max mem: 20783
+Test:  [20/97]  eta: 0:00:33  model_time: 0.4182 (0.4226)  evaluator_time: 0.0043 (0.0081)  time: 0.4318  data: 0.0009  max mem: 20783
+Test:  [40/97]  eta: 0:00:24  model_time: 0.4108 (0.4206)  evaluator_time: 0.0043 (0.0062)  time: 0.4238  data: 0.0008  max mem: 20783
+Test:  [60/97]  eta: 0:00:15  model_time: 0.4229 (0.4230)  evaluator_time: 0.0043 (0.0062)  time: 0.4352  data: 0.0008  max mem: 20783
+Test:  [80/97]  eta: 0:00:07  model_time: 0.4127 (0.4227)  evaluator_time: 0.0043 (0.0058)  time: 0.4273  data: 0.0008  max mem: 20783
+Test:  [96/97]  eta: 0:00:00  model_time: 0.4190 (0.4220)  evaluator_time: 0.0044 (0.0060)  time: 0.4263  data: 0.0009  max mem: 20783
+Test: Total time: 0:00:41 (0.4291 s / it)
+Averaged stats: model_time: 0.4190 (0.4253)  evaluator_time: 0.0044 (0.0057)
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+:::MLLOG {"namespace": "", "time_ms": 1665630955621, "event_type": "INTERVAL_START", "key": "epoch_start", "value": 3, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 161, "epoch_num": 3}}
+WARNING:root:DALI iterator does not support resetting while epoch is not finished.                              Ignoring...
+Loading and preparing results...
+Epoch: [3]  [   0/4571]  eta: 0:20:43    time: 0.2719  data: 0.0012  max mem: 20783
+DONE (t=2.49s)
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.57s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.33787
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.48288
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.36351
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.00800
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.09675
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.37362
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.40142
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.57423
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.60088
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.03290
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.24919
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.65248
+:::MLLOG {"namespace": "", "time_ms": 1665630960990, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.33786567774641996, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 426, "epoch_num": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1665630960991, "event_type": "INTERVAL_END", "key": "eval_stop", "value": 3, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 427, "epoch_num": 3}}
+Epoch: [3]  [  20/4571]  eta: 0:21:10    time: 0.2795  data: 0.0008  max mem: 20783
+Epoch: [3]  [  40/4571]  eta: 0:21:05    time: 0.2796  data: 0.0008  max mem: 20783
+Epoch: [3]  [  60/4571]  eta: 0:21:00    time: 0.2799  data: 0.0008  max mem: 20783
+Epoch: [3]  [  80/4571]  eta: 0:20:55    time: 0.2798  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 100/4571]  eta: 0:20:50    time: 0.2797  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 120/4571]  eta: 0:20:44    time: 0.2799  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 140/4571]  eta: 0:20:39    time: 0.2805  data: 0.0011  max mem: 20783
+Epoch: [3]  [ 160/4571]  eta: 0:20:34    time: 0.2801  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 180/4571]  eta: 0:20:28    time: 0.2798  data: 0.0011  max mem: 20783
+Epoch: [3]  [ 200/4571]  eta: 0:20:23    time: 0.2802  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 220/4571]  eta: 0:20:17    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 240/4571]  eta: 0:20:12    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 260/4571]  eta: 0:20:07    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 280/4571]  eta: 0:20:01    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 300/4571]  eta: 0:19:56    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [3]  [ 320/4571]  eta: 0:19:50    time: 0.2801  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 340/4571]  eta: 0:19:45    time: 0.2803  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 360/4571]  eta: 0:19:39    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 380/4571]  eta: 0:19:34    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [ 400/4571]  eta: 0:19:28    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [3]  [ 420/4571]  eta: 0:19:23    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 440/4571]  eta: 0:19:17    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 460/4571]  eta: 0:19:12    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 480/4571]  eta: 0:19:06    time: 0.2803  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 500/4571]  eta: 0:19:01    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 520/4571]  eta: 0:18:55    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [ 540/4571]  eta: 0:18:49    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 560/4571]  eta: 0:18:44    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 580/4571]  eta: 0:18:38    time: 0.2812  data: 0.0009  max mem: 20783
+Epoch: [3]  [ 600/4571]  eta: 0:18:33    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 620/4571]  eta: 0:18:27    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 640/4571]  eta: 0:18:22    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 660/4571]  eta: 0:18:16    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 680/4571]  eta: 0:18:11    time: 0.2806  data: 0.0009  max mem: 20783
+Epoch: [3]  [ 700/4571]  eta: 0:18:05    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 720/4571]  eta: 0:18:00    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 740/4571]  eta: 0:17:54    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [ 760/4571]  eta: 0:17:48    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [3]  [ 780/4571]  eta: 0:17:43    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 800/4571]  eta: 0:17:37    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 820/4571]  eta: 0:17:32    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 840/4571]  eta: 0:17:26    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 860/4571]  eta: 0:17:21    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 880/4571]  eta: 0:17:15    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 900/4571]  eta: 0:17:09    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 920/4571]  eta: 0:17:04    time: 0.2808  data: 0.0011  max mem: 20783
+Epoch: [3]  [ 940/4571]  eta: 0:16:58    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 960/4571]  eta: 0:16:53    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [ 980/4571]  eta: 0:16:47    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [1000/4571]  eta: 0:16:41    time: 0.2807  data: 0.0009  max mem: 20783
+Epoch: [3]  [1020/4571]  eta: 0:16:36    time: 0.2811  data: 0.0009  max mem: 20783
+Epoch: [3]  [1040/4571]  eta: 0:16:30    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [3]  [1060/4571]  eta: 0:16:25    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [3]  [1080/4571]  eta: 0:16:19    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [1100/4571]  eta: 0:16:13    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [1120/4571]  eta: 0:16:08    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [3]  [1140/4571]  eta: 0:16:02    time: 0.2807  data: 0.0009  max mem: 20783
+Epoch: [3]  [1160/4571]  eta: 0:15:57    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [1180/4571]  eta: 0:15:51    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [1200/4571]  eta: 0:15:46    time: 0.2809  data: 0.0011  max mem: 20783
+Epoch: [3]  [1220/4571]  eta: 0:15:40    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [1240/4571]  eta: 0:15:34    time: 0.2806  data: 0.0009  max mem: 20783
+Epoch: [3]  [1260/4571]  eta: 0:15:29    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [1280/4571]  eta: 0:15:23    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [1300/4571]  eta: 0:15:18    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [1320/4571]  eta: 0:15:12    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [1340/4571]  eta: 0:15:06    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [1360/4571]  eta: 0:15:01    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [1380/4571]  eta: 0:14:55    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [1400/4571]  eta: 0:14:50    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [3]  [1420/4571]  eta: 0:14:44    time: 0.2814  data: 0.0009  max mem: 20783
+Epoch: [3]  [1440/4571]  eta: 0:14:38    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [1460/4571]  eta: 0:14:33    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [1480/4571]  eta: 0:14:27    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [1500/4571]  eta: 0:14:21    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [1520/4571]  eta: 0:14:16    time: 0.2809  data: 0.0009  max mem: 20783
+Epoch: [3]  [1540/4571]  eta: 0:14:10    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [1560/4571]  eta: 0:14:05    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [1580/4571]  eta: 0:13:59    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [1600/4571]  eta: 0:13:53    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [1620/4571]  eta: 0:13:48    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [1640/4571]  eta: 0:13:42    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [1660/4571]  eta: 0:13:37    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [1680/4571]  eta: 0:13:31    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [1700/4571]  eta: 0:13:25    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [1720/4571]  eta: 0:13:20    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [3]  [1740/4571]  eta: 0:13:14    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [1760/4571]  eta: 0:13:09    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [1780/4571]  eta: 0:13:03    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [1800/4571]  eta: 0:12:57    time: 0.2806  data: 0.0009  max mem: 20783
+Epoch: [3]  [1820/4571]  eta: 0:12:52    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [1840/4571]  eta: 0:12:46    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [1860/4571]  eta: 0:12:41    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [1880/4571]  eta: 0:12:35    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [1900/4571]  eta: 0:12:29    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [1920/4571]  eta: 0:12:24    time: 0.2811  data: 0.0008  max mem: 20783
+Epoch: [3]  [1940/4571]  eta: 0:12:18    time: 0.2812  data: 0.0008  max mem: 20783
+Epoch: [3]  [1960/4571]  eta: 0:12:13    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [1980/4571]  eta: 0:12:07    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [2000/4571]  eta: 0:12:01    time: 0.2813  data: 0.0008  max mem: 20783
+Epoch: [3]  [2020/4571]  eta: 0:11:56    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [2040/4571]  eta: 0:11:50    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [2060/4571]  eta: 0:11:44    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [2080/4571]  eta: 0:11:39    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [2100/4571]  eta: 0:11:33    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [2120/4571]  eta: 0:11:28    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [2140/4571]  eta: 0:11:22    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [2160/4571]  eta: 0:11:16    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [2180/4571]  eta: 0:11:11    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [2200/4571]  eta: 0:11:05    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [2220/4571]  eta: 0:11:00    time: 0.2804  data: 0.0013  max mem: 20783
+Epoch: [3]  [2240/4571]  eta: 0:10:54    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [2260/4571]  eta: 0:10:48    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [2280/4571]  eta: 0:10:43    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [2300/4571]  eta: 0:10:37    time: 0.2805  data: 0.0009  max mem: 20783
+Epoch: [3]  [2320/4571]  eta: 0:10:31    time: 0.2810  data: 0.0010  max mem: 20783
+Epoch: [3]  [2340/4571]  eta: 0:10:26    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [2360/4571]  eta: 0:10:20    time: 0.2814  data: 0.0008  max mem: 20783
+Epoch: [3]  [2380/4571]  eta: 0:10:15    time: 0.2817  data: 0.0007  max mem: 20783
+Epoch: [3]  [2400/4571]  eta: 0:10:09    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [2420/4571]  eta: 0:10:03    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [2440/4571]  eta: 0:09:58    time: 0.2812  data: 0.0007  max mem: 20783
+Epoch: [3]  [2460/4571]  eta: 0:09:52    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [2480/4571]  eta: 0:09:47    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [2500/4571]  eta: 0:09:41    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [2520/4571]  eta: 0:09:35    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [2540/4571]  eta: 0:09:30    time: 0.2815  data: 0.0008  max mem: 20783
+Epoch: [3]  [2560/4571]  eta: 0:09:24    time: 0.2806  data: 0.0008  max mem: 20783
+Epoch: [3]  [2580/4571]  eta: 0:09:18    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [2600/4571]  eta: 0:09:13    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [2620/4571]  eta: 0:09:07    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [2640/4571]  eta: 0:09:02    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [2660/4571]  eta: 0:08:56    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [2680/4571]  eta: 0:08:50    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [2700/4571]  eta: 0:08:45    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [2720/4571]  eta: 0:08:39    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [2740/4571]  eta: 0:08:34    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [2760/4571]  eta: 0:08:28    time: 0.2802  data: 0.0008  max mem: 20783
+Epoch: [3]  [2780/4571]  eta: 0:08:22    time: 0.2807  data: 0.0008  max mem: 20783
+Epoch: [3]  [2800/4571]  eta: 0:08:17    time: 0.2805  data: 0.0009  max mem: 20783
+Epoch: [3]  [2820/4571]  eta: 0:08:11    time: 0.2816  data: 0.0008  max mem: 20783
+Epoch: [3]  [2840/4571]  eta: 0:08:05    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [2860/4571]  eta: 0:08:00    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [2880/4571]  eta: 0:07:54    time: 0.2810  data: 0.0009  max mem: 20783
+Epoch: [3]  [2900/4571]  eta: 0:07:49    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [2920/4571]  eta: 0:07:43    time: 0.2809  data: 0.0009  max mem: 20783
+Epoch: [3]  [2940/4571]  eta: 0:07:37    time: 0.2808  data: 0.0009  max mem: 20783
+Epoch: [3]  [2960/4571]  eta: 0:07:32    time: 0.2803  data: 0.0009  max mem: 20783
+Epoch: [3]  [2980/4571]  eta: 0:07:26    time: 0.2804  data: 0.0008  max mem: 20783
+Epoch: [3]  [3000/4571]  eta: 0:07:21    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3020/4571]  eta: 0:07:15    time: 0.2802  data: 0.0008  max mem: 20783
+Epoch: [3]  [3040/4571]  eta: 0:07:09    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [3060/4571]  eta: 0:07:04    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [3080/4571]  eta: 0:06:58    time: 0.2809  data: 0.0008  max mem: 20783
+Epoch: [3]  [3100/4571]  eta: 0:06:52    time: 0.2805  data: 0.0008  max mem: 20783
+Epoch: [3]  [3120/4571]  eta: 0:06:47    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [3140/4571]  eta: 0:06:41    time: 0.2801  data: 0.0008  max mem: 20783
+Epoch: [3]  [3160/4571]  eta: 0:06:36    time: 0.2808  data: 0.0009  max mem: 20783
+Epoch: [3]  [3180/4571]  eta: 0:06:30    time: 0.2805  data: 0.0014  max mem: 20783
+Epoch: [3]  [3200/4571]  eta: 0:06:24    time: 0.2806  data: 0.0009  max mem: 20783
+Epoch: [3]  [3220/4571]  eta: 0:06:19    time: 0.2808  data: 0.0008  max mem: 20783
+Epoch: [3]  [3240/4571]  eta: 0:06:13    time: 0.2811  data: 0.0009  max mem: 20783
+Epoch: [3]  [3260/4571]  eta: 0:06:08    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3280/4571]  eta: 0:06:02    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [3300/4571]  eta: 0:05:56    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3320/4571]  eta: 0:05:51    time: 0.2813  data: 0.0007  max mem: 20783
+Epoch: [3]  [3340/4571]  eta: 0:05:45    time: 0.2801  data: 0.0007  max mem: 20783
+Epoch: [3]  [3360/4571]  eta: 0:05:39    time: 0.2810  data: 0.0008  max mem: 20783
+Epoch: [3]  [3380/4571]  eta: 0:05:34    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [3400/4571]  eta: 0:05:28    time: 0.2835  data: 0.0007  max mem: 20783
+Epoch: [3]  [3420/4571]  eta: 0:05:23    time: 0.2801  data: 0.0007  max mem: 20783
+Epoch: [3]  [3440/4571]  eta: 0:05:17    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [3]  [3460/4571]  eta: 0:05:11    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [3480/4571]  eta: 0:05:06    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [3]  [3500/4571]  eta: 0:05:00    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [3520/4571]  eta: 0:04:55    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3540/4571]  eta: 0:04:49    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3560/4571]  eta: 0:04:43    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [3]  [3580/4571]  eta: 0:04:38    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [3600/4571]  eta: 0:04:32    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3620/4571]  eta: 0:04:26    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [3640/4571]  eta: 0:04:21    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [3660/4571]  eta: 0:04:15    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [3680/4571]  eta: 0:04:10    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [3700/4571]  eta: 0:04:04    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [3720/4571]  eta: 0:03:58    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [3]  [3740/4571]  eta: 0:03:53    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [3760/4571]  eta: 0:03:47    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [3780/4571]  eta: 0:03:42    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [3800/4571]  eta: 0:03:36    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [3820/4571]  eta: 0:03:30    time: 0.2802  data: 0.0007  max mem: 20783
+Epoch: [3]  [3840/4571]  eta: 0:03:25    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [3860/4571]  eta: 0:03:19    time: 0.2802  data: 0.0007  max mem: 20783
+Epoch: [3]  [3880/4571]  eta: 0:03:13    time: 0.2802  data: 0.0007  max mem: 20783
+Epoch: [3]  [3900/4571]  eta: 0:03:08    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [3]  [3920/4571]  eta: 0:03:02    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [3940/4571]  eta: 0:02:57    time: 0.2801  data: 0.0007  max mem: 20783
+Epoch: [3]  [3960/4571]  eta: 0:02:51    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [3980/4571]  eta: 0:02:45    time: 0.2809  data: 0.0012  max mem: 20783
+Epoch: [3]  [4000/4571]  eta: 0:02:40    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [4020/4571]  eta: 0:02:34    time: 0.2808  data: 0.0007  max mem: 20783
+Epoch: [3]  [4040/4571]  eta: 0:02:29    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [4060/4571]  eta: 0:02:23    time: 0.2810  data: 0.0007  max mem: 20783
+Epoch: [3]  [4080/4571]  eta: 0:02:17    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [4100/4571]  eta: 0:02:12    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [4120/4571]  eta: 0:02:06    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [4140/4571]  eta: 0:02:00    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [4160/4571]  eta: 0:01:55    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [4180/4571]  eta: 0:01:49    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [4200/4571]  eta: 0:01:44    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [4220/4571]  eta: 0:01:38    time: 0.2802  data: 0.0007  max mem: 20783
+Epoch: [3]  [4240/4571]  eta: 0:01:32    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [4260/4571]  eta: 0:01:27    time: 0.2802  data: 0.0007  max mem: 20783
+Epoch: [3]  [4280/4571]  eta: 0:01:21    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [4300/4571]  eta: 0:01:16    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [4320/4571]  eta: 0:01:10    time: 0.2815  data: 0.0007  max mem: 20783
+Epoch: [3]  [4340/4571]  eta: 0:01:04    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3]  [4360/4571]  eta: 0:00:59    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [4380/4571]  eta: 0:00:53    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [3]  [4400/4571]  eta: 0:00:48    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [4420/4571]  eta: 0:00:42    time: 0.2805  data: 0.0007  max mem: 20783
+Epoch: [3]  [4440/4571]  eta: 0:00:36    time: 0.2809  data: 0.0007  max mem: 20783
+Epoch: [3]  [4460/4571]  eta: 0:00:31    time: 0.2806  data: 0.0007  max mem: 20783
+Epoch: [3]  [4480/4571]  eta: 0:00:25    time: 0.2801  data: 0.0007  max mem: 20783
+Epoch: [3]  [4500/4571]  eta: 0:00:19    time: 0.2811  data: 0.0007  max mem: 20783
+Epoch: [3]  [4520/4571]  eta: 0:00:14    time: 0.2801  data: 0.0007  max mem: 20783
+Epoch: [3]  [4540/4571]  eta: 0:00:08    time: 0.2803  data: 0.0007  max mem: 20783
+Epoch: [3]  [4560/4571]  eta: 0:00:03    time: 0.2807  data: 0.0007  max mem: 20783
+Epoch: [3]  [4570/4571]  eta: 0:00:00    time: 0.2804  data: 0.0007  max mem: 20783
+Epoch: [3] Total time: 0:21:23 (0.2807 s / it)
+:::MLLOG {"namespace": "", "time_ms": 1665632238881, "event_type": "INTERVAL_END", "key": "epoch_stop", "value": 3, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 328, "epoch_num": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1665632238881, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 113.99105305179881}, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 332, "step": 4}}
+:::MLLOG {"namespace": "", "time_ms": 1665632238881, "event_type": "INTERVAL_START", "key": "eval_start", "value": 4, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 340, "epoch_num": 4}}
+Test:  [ 0/97]  eta: 0:00:37  model_time: 0.3872 (0.3872)  evaluator_time: 0.0033 (0.0033)  time: 0.3914  data: 0.0007  max mem: 20783
+Test:  [20/97]  eta: 0:00:31  model_time: 0.4082 (0.4064)  evaluator_time: 0.0039 (0.0059)  time: 0.4142  data: 0.0007  max mem: 20783
+Test:  [40/97]  eta: 0:00:23  model_time: 0.4021 (0.4049)  evaluator_time: 0.0039 (0.0049)  time: 0.4079  data: 0.0006  max mem: 20783
+Test:  [60/97]  eta: 0:00:15  model_time: 0.4081 (0.4070)  evaluator_time: 0.0038 (0.0051)  time: 0.4177  data: 0.0007  max mem: 20783
+Test:  [80/97]  eta: 0:00:07  model_time: 0.4068 (0.4072)  evaluator_time: 0.0039 (0.0048)  time: 0.4125  data: 0.0006  max mem: 20783
+Test:  [96/97]  eta: 0:00:00  model_time: 0.4101 (0.4065)  evaluator_time: 0.0040 (0.0047)  time: 0.4114  data: 0.0006  max mem: 20783
+Test: Total time: 0:00:39 (0.4120 s / it)
+Averaged stats: model_time: 0.4101 (0.4162)  evaluator_time: 0.0040 (0.0050)
+:::MLLOG {"namespace": "", "time_ms": 1665632281105, "event_type": "INTERVAL_START", "key": "epoch_start", "value": 4, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 161, "epoch_num": 4}}
+Loading and preparing results...
+Epoch: [4]  [   0/4572]  eta: 0:20:42    time: 0.2718  data: 0.0010  max mem: 20783
+DONE (t=2.28s)
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.49s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.34828
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.49420
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.37568
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.00820
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.09507
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.38707
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.40950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.58261
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.60987
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.03097
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.25549
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.66258
+:::MLLOG {"namespace": "", "time_ms": 1665632286137, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.3482844625317659, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 426, "epoch_num": 4}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286137, "event_type": "INTERVAL_END", "key": "eval_stop", "value": 4, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 427, "epoch_num": 4}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286976, "event_type": "INTERVAL_END", "key": "epoch_stop", "value": 4, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 328, "epoch_num": 4}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286976, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 115.08578632181161}, "metadata": {"file": "/workspace/ssd/engine.py", "lineno": 332, "step": 5}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "INTERVAL_END", "key": "run_stop", "value": null, "metadata": {"file": "train.py", "lineno": 642, "status": "success"}}
+Training time 1:28:59
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+:::MLLOG {"namespace": "", "time_ms": 1665632286978, "event_type": "POINT_IN_TIME", "key": "status", "value": "success", "metadata": {"file": "train.py", "lineno": 646}}
+/opt/conda/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+ENDING TIMING RUN AT 2022-10-13 03:38:11 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5459,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:11 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5459,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:12 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5460,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:12 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5460,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:12 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5460,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:12 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5460,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:12 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5460,nvidia,2022-10-13 02:07:12 AM
+ENDING TIMING RUN AT 2022-10-13 03:38:13 AM
+RESULT,SINGLE_STAGE_DETECTOR,,5461,nvidia,2022-10-13 02:07:12 AM

@@ -1,0 +1,86 @@
+diff --git a/torch/utils/data/_utils/worker.py b/torch/utils/data/_utils/worker.py
+index ee94bc08ac..f2f2f0e6c9 100644
+--- a/torch/utils/data/_utils/worker.py
++++ b/torch/utils/data/_utils/worker.py
+@@ -200,7 +200,7 @@ def _generate_state(base_seed, worker_id):
+     return state
+ 
+ def _worker_loop(dataset_kind, dataset, index_queue, data_queue, done_event,
+-                 auto_collation, collate_fn, drop_last, base_seed, init_fn, worker_id,
++                 auto_collation, collate_fn, drop_last, base_seed, init_fn, worker_id, worker_cpu_coreid,
+                  num_workers, persistent_workers, shared_seed):
+     # See NOTE [ Data Loader Multiprocessing Shutdown Logic ] for details on the
+     # logic of this function.
+@@ -213,6 +213,20 @@ def _worker_loop(dataset_kind, dataset, index_queue, data_queue, done_event,
+         # https://docs.python.org/3/library/signal.html#execution-of-python-signal-handlers
+         signal_handling._set_worker_signal_handlers()
+ 
++        if isinstance(worker_cpu_coreid, int): 
++
++            print("Debug info")
++            print('parent process: ', os.getppid())
++            print('process id: ', os.getpid()) 
++            print('cpu affinity specified: ', worker_cpu_coreid)
++
++            # set affinity 
++            #os.sched_setaffinity(os.getpid(),[worker_cpu_coreid])
++            cmd = "taskset -p -c %d %d" % (worker_cpu_coreid, os.getpid()) 
++            print('cmd: ', cmd)
++            os.system(cmd)         
++            os.environ['OMP_NUM_THREADS'] = '{}'.format(1)  
++
+         torch.set_num_threads(1)
+         seed = base_seed + worker_id
+         random.seed(seed)
+diff --git a/torch/utils/data/dataloader.py b/torch/utils/data/dataloader.py
+index af5990b9eb..07baf240e1 100644
+--- a/torch/utils/data/dataloader.py
++++ b/torch/utils/data/dataloader.py
+@@ -216,7 +216,7 @@ class DataLoader(Generic[T_co]):
+     def __init__(self, dataset: Dataset[T_co], batch_size: Optional[int] = 1,
+                  shuffle: Optional[bool] = None, sampler: Union[Sampler, Iterable, None] = None,
+                  batch_sampler: Union[Sampler[Sequence], Iterable[Sequence], None] = None,
+-                 num_workers: int = 0, collate_fn: Optional[_collate_fn_t] = None,
++                 num_workers: int = 0, worker_affinity: list = [], collate_fn: Optional[_collate_fn_t] = None,
+                  pin_memory: bool = False, drop_last: bool = False,
+                  timeout: float = 0, worker_init_fn: Optional[_worker_init_fn_t] = None,
+                  multiprocessing_context=None, generator=None,
+@@ -240,8 +240,12 @@ class DataLoader(Generic[T_co]):
+         if persistent_workers and num_workers == 0:
+             raise ValueError('persistent_workers option needs num_workers > 0')
+ 
++        if num_workers > 0 and worker_affinity and len(worker_affinity) != num_workers: 
++            raise ValueError('length of worker_affinity list should equal num_workers')
++
+         self.dataset = dataset
+         self.num_workers = num_workers
++        self.worker_affinity = worker_affinity
+         self.prefetch_factor = prefetch_factor
+         self.pin_memory = pin_memory
+         self.pin_memory_device = pin_memory_device
+@@ -631,6 +635,7 @@ class _BaseDataLoaderIter(object):
+         self._drop_last = loader.drop_last
+         self._index_sampler = loader._index_sampler
+         self._num_workers = loader.num_workers
++        self._worker_affinity = loader.worker_affinity
+         self._prefetch_factor = loader.prefetch_factor
+         # for other backends, pin_memory_device need to set. if not set
+         # default behaviour is CUDA device. if pin_memory_device is selected
+@@ -1058,12 +1063,16 @@ class _MultiProcessingDataLoaderIter(_BaseDataLoaderIter):
+             # Need to `cancel_join_thread` here!
+             # See sections (2) and (3b) above.
+             index_queue.cancel_join_thread()
++            # get CPU core id to set affinity if specified
++            _worker_cpu_coreid = None
++            if self._worker_affinity:
++                _worker_cpu_coreid = self._worker_affinity[i] 
+             w = multiprocessing_context.Process(
+                 target=_utils.worker._worker_loop,
+                 args=(self._dataset_kind, self._dataset, index_queue,
+                       self._worker_result_queue, self._workers_done_event,
+                       self._auto_collation, self._collate_fn, self._drop_last,
+-                      self._base_seed, self._worker_init_fn, i, self._num_workers,
++                      self._base_seed, self._worker_init_fn, i, _worker_cpu_coreid, self._num_workers,
+                       self._persistent_workers, self._shared_seed))
+             w.daemon = True
+             # NB: Process.start() actually take some time as it needs to

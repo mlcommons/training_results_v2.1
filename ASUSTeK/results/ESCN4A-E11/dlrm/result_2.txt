@@ -1,0 +1,82 @@
++ [[ 1 == 1 ]]
++ bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on Mlperf1
+vm.drop_caches = 3
++ docker exec -it dlrm_hugectr python3 -c '
+from mlperf_logging.mllog import constants
+from mlperf_logger.utils import log_event
+log_event(key=constants.CACHE_CLEAR, value=True)'
+:::MLLOG {"namespace": "", "time_ms": 1652149271717, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "<string>", "lineno": 4}}
++ echo 'Beginning trial 3 of 5'
+Beginning trial 3 of 5
++ docker exec -it --env=BATCH_SIZE --env=CONFIG --env=CUDA_DEVICE_MAX_CONNECTIONS --env=DGXNGPU --env=DGXNNODES --env=DGXSYSTEM --env=MOUNTS --env=OMPI_MCA_btl --env=WALLTIME --env=DATADIR --env=DATASET_TYPE --env=DGXSYSTEM dlrm_hugectr bash ./run_and_time.sh
+++ date +%s
++ START_TIMESTAMP=1652149271
++ echo 'DLRM_BIND is set to ""'
+DLRM_BIND is set to ""
++ python3 escn4a-e11.py
++ tee /tmp/dlrm_hugectr.log
+[0.00, init_start, ]
+HugeCTR Version: 3.3
+====================================================Model Init=====================================================
+[HUGECTR][02:21:12][WARNING][RANK0]: The model name is not specified when creating the solver.
+[HUGECTR][02:21:12][INFO][RANK0]: Global seed is 2702842764
+[HUGECTR][02:21:12][INFO][RANK0]: Device to NUMA mapping:
+  GPU 0 ->  node 3
+  GPU 1 ->  node 2
+  GPU 2 ->  node 1
+  GPU 3 ->  node 0
+
+[HUGECTR][02:21:16][INFO][RANK0]: Start all2all warmup
+[HUGECTR][02:21:16][INFO][RANK0]: End all2all warmup
+[HUGECTR][02:21:16][INFO][RANK0]: Using All-reduce algorithm: OneShot
+[HUGECTR][02:21:17][INFO][RANK0]: Device 0: NVIDIA A100-SXM4-80GB
+[HUGECTR][02:21:17][INFO][RANK0]: Device 1: NVIDIA A100-SXM4-80GB
+[HUGECTR][02:21:17][INFO][RANK0]: Device 2: NVIDIA A100-SXM4-80GB
+[HUGECTR][02:21:17][INFO][RANK0]: Device 3: NVIDIA A100-SXM4-80GB
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: num_threads = 32
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: num_batches_per_thread = 4
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: io_block_size = 552960
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: io_depth = 2
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: io_alignment = 512
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: shuffle = ON
+[HUGECTR][02:21:17][INFO][RANK0]: AsyncReader: num_iterations_statistics = 20
+[HUGECTR][02:21:18][INFO][RANK0]: AsyncReader: eval reader increased batches per thread to 13 to accommodate for the caching
++ python3 -m mlperf_logger.format_ctr_output --log_path /tmp/dlrm_hugectr.log --config_file dlrm.json --start_timestamp 1652149271
+:::MLLOG {"namespace": "", "time_ms": 1652149281563, "event_type": "POINT_IN_TIME", "key": "submission_benchmark", "value": "dlrm", "metadata": {"file": "/workspace/dlrm/mlperf_logger/utils.py", "lineno": 52}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281571, "event_type": "POINT_IN_TIME", "key": "submission_org", "value": "ASUSTeK", "metadata": {"file": "/workspace/dlrm/mlperf_logger/utils.py", "lineno": 57}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281571, "event_type": "POINT_IN_TIME", "key": "submission_division", "value": "closed", "metadata": {"file": "/workspace/dlrm/mlperf_logger/utils.py", "lineno": 61}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281571, "event_type": "POINT_IN_TIME", "key": "submission_status", "value": "onprem", "metadata": {"file": "/workspace/dlrm/mlperf_logger/utils.py", "lineno": 65}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281571, "event_type": "POINT_IN_TIME", "key": "submission_platform", "value": "1xESCN4A-E11", "metadata": {"file": "/workspace/dlrm/mlperf_logger/utils.py", "lineno": 69}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281571, "event_type": "POINT_IN_TIME", "key": "eval_samples", "value": 89137319, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 37}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "global_batch_size", "value": 55296, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 39}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "opt_base_learning_rate", "value": 24.0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 41}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "sgd_opt_base_learning_rate", "value": 24.0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 43}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "sgd_opt_learning_rate_decay_poly_power", "value": 2.0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 45}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_steps", "value": 2750, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 47}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_factor", "value": 0.0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 49}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "lr_decay_start_steps", "value": 49315, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 51}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "sgd_opt_learning_rate_decay_steps", "value": 27772, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 53}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "gradient_accumulation_steps", "value": 1, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 55}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "embeddings"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "bottom_mlp_dense1"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "bottom_mlp_dense2"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "bottom_mlp_dense3"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "top_mlp_dense1"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281572, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "top_mlp_dense2"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281573, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "top_mlp_dense3"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281573, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "top_mlp_dense4"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149281573, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 66, "tensor": "top_mlp_dense5"}}
+:::MLLOG {"namespace": "", "time_ms": 1652149271000, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/format_ctr_output.py", "lineno": 158}}
++ ret_code=0
++ sleep 3
++ [[ 0 != 0 ]]
++ readonly node_rank=0
++ node_rank=0
++ readonly local_rank=
++ local_rank=
++ '[' 0 -eq 0 ']'
++ '[' '' -eq 0 ']'
+./run_and_time.sh: line 40: [: : integer expression expected
++ echo RESULT,DLRM,,
+RESULT,DLRM,,

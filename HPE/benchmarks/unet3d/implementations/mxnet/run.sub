@@ -1,0 +1,187 @@
+#!/bin/bash
+#SBATCH --job-name=unet3d_mlpv21
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-socket=4
+#SBATCH --cpus-per-task=8
+##
+#SBATCH --partition=mlperf
+#SBATCH --time=04:00:00
+## SBATCH --exclusive
+
+# Copyright (c) 2021-2022, NVIDIA CORPORATION. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eux
+
+# Vars without defaults
+: "${DGXSYSTEM:?DGXSYSTEM not set}"
+: "${CONT:?CONT not set}"
+
+# Vars with defaults
+: "${NEXP:=40}"
+: "${DATESTAMP:=$(date +'%y%m%d%H%M%S%N')}"
+: "${CLEAR_CACHES:=1}"
+# ci automagically sets this correctly on Selene
+: "${DATADIR:=/raid/datasets/mlperft-unet3d/kits19/}"
+: "${LOGDIR:=./results}"
+: "${API_LOG_DIR:=./api_logs}" # apiLog.sh output dir
+
+TIME_TAGS=${TIME_TAGS:-0}
+NVTX_FLAG=${NVTX_FLAG:-0}
+NCCL_TEST=${NCCL_TEST:-0}
+SYNTH_DATA=${SYNTH_DATA:-0}
+EPOCH_PROF=${EPOCH_PROF:-0}
+
+# Other vars
+LOGBASE="${DATESTAMP}"
+SPREFIX="image_segmentation_mxnet_${DGXNNODES}x${DGXNGPU}x${BATCH_SIZE}_${DATESTAMP}"
+
+if [ ${TIME_TAGS} -gt 0 ]; then
+    LOGBASE="${SPREFIX}_mllog"
+fi
+if [ ${NVTX_FLAG} -gt 0 ]; then
+    if [[ "$LOGBASE" == *'_'* ]];then
+        LOGBASE="${LOGBASE}_nsys"
+    else
+        LOGBASE="${SPREFIX}_nsys"
+    fi
+fi
+if [ ${SYNTH_DATA} -gt 0 ]; then
+    if [[ "$LOGBASE" == *'_'* ]];then
+        LOGBASE="${LOGBASE}_synth"
+    else
+        LOGBASE="${SPREFIX}_synth"
+    fi
+
+fi
+if [ ${EPOCH_PROF} -gt 0 ]; then
+    if [[ "$LOGBASE" == *'_'* ]];then
+        LOGBASE="${LOGBASE}_epoch"
+    else
+        LOGBASE="${SPREFIX}_epoch"
+    fi
+fi
+
+export LOGDIR="${LOGDIR}/${SLURM_JOB_ID}"
+readonly _logfile_base="${LOGDIR}/${LOGBASE}"
+readonly _cont_name=image_segmentation
+
+#######################################
+# Print mount locations from file.
+# Arguments:
+#   arg1 - path to file containing volume mounting points
+# Returns:
+#   String containing comma-separated mount pairs list
+#######################################
+func_get_container_mounts() {
+  declare -a mount_array
+  readarray -t mount_array <<<$(egrep -v '^#' "${1}")
+  local cont_mounts=$(envsubst <<< $(printf '%s,' "${mount_array[@]}" | sed 's/[,]*$//'))
+  echo $cont_mounts
+}
+
+#######################################
+# CI does not make the current directory the model directory. It is two levels up, which is different than a command line launch.
+# This function looks in ${PWD} and then two levels down for a file, and updates the path if necessary.
+# Arguments:
+#   arg1 - expected path to file
+#   arg2 - model path (e.g., language_model/pytorch/)
+# Returns:
+#   String containing updated (or original) path
+#######################################
+func_update_file_path_for_ci() {
+  declare new_path
+  if [ -f "${1}" ]; then
+    new_path="${1}"
+  else
+    new_path="${2}/${1}"
+  fi
+
+  if [ ! -f "${new_path}" ]; then
+    echo "File not found: ${1}"
+    exit 1
+  fi
+
+  echo "${new_path}"
+}
+_cont_mounts=$(func_get_container_mounts $(func_update_file_path_for_ci mounts.txt ${PWD}))
+
+_cont_mounts+=",${DATADIR}:/data,${LOGDIR}:/results"
+_cont_mounts+=",${PWD}:/workspace/image_segmentation"
+if [ "${API_LOGGING:-}" -eq 1 ]; then
+    _cont_mounts="${_cont_mounts},${API_LOG_DIR}:/logs"
+fi
+
+# MLPerf vars
+# MLPERF_HOST_OS=$(srun -N1 -n1 bash <<EOF
+#     source /etc/os-release
+#     source /etc/dgx-release || true
+#     echo "\${PRETTY_NAME} / \${DGX_PRETTY_NAME:-???} \${DGX_OTA_VERSION:-\${DGX_SWBUILD_VERSION:-???}}"
+# EOF
+# )
+export MLPERF_HOST_OS="Apollo6500_Gen10plus"
+
+# Setup directories
+mkdir -p "${LOGDIR}"
+
+# Setup container
+srun \
+    --ntasks="${SLURM_JOB_NUM_NODES}" \
+    --container-image="${CONT}" \
+    --container-name="${_cont_name}" \
+    --container-mounts="${_cont_mounts}" true
+    true
+
+echo "NCCL_TEST = ${NCCL_TEST}"
+if [[ ${NCCL_TEST} -eq 1 ]]; then
+    (srun \
+        --mpi=pmix \
+        --ntasks="$(( SLURM_JOB_NUM_NODES * DGXNGPU ))" \
+        --ntasks-per-node="${DGXNGPU}" \
+        --container-name="${_cont_name}" \
+        --container-mounts="${_cont_mounts}" \
+        all_reduce_perf_mpi -b 62M -e 62M -d half
+) |& tee "${LOGDIR}/${SPREFIX}_nccl.log"
+fi
+
+# Run experiments
+for _experiment_index in $(seq -w 1 "${NEXP}"); do
+    (
+        echo "Beginning trial ${_experiment_index} of ${NEXP}"
+	    echo ":::DLPAL ${CONT} ${SLURM_JOB_ID} ${SLURM_JOB_NUM_NODES} ${SLURM_JOB_NODELIST}"
+
+        # Print system info
+#        srun -N1 -n1 --container-name="${_cont_name}" python -c "
+#import mlperf_logger
+#from mlperf_logging.mllog import constants
+#mlperf_logger.mlperf_submission_log(${SLURM_JOB_NUM_NODES})"
+
+        # Clear caches
+        if [ "${CLEAR_CACHES}" -eq 1 ]; then
+            srun \
+                --ntasks="${SLURM_JOB_NUM_NODES}" \
+                bash -c "echo -n 'Clearing cache on ' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3"
+#            srun --ntasks="${SLURM_JOB_NUM_NODES}" --container-name="${_cont_name}" python -c "
+#from mlperf_logging.mllog import constants
+#from mlperf_logger import mllog_event"
+        fi
+
+        # Run experiment
+        srun --ntasks="$(( SLURM_JOB_NUM_NODES * DGXNGPU ))" \
+            --ntasks-per-node="${DGXNGPU}" \
+            --container-name="${_cont_name}" \
+            --container-mounts="${_cont_mounts}" \
+            /workspace/image_segmentation/run_and_time.sh
+    ) |& tee "${_logfile_base}_${_experiment_index}.log"
+done

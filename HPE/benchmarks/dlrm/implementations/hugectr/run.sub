@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+# Vars without defaults
+: "${DGXSYSTEM:?DGXSYSTEM not set}"
+: "${CONT:?CONT not set}"
+
+export MOUNTS=("/apps:/apps,/nfs:/nfs,${SCRIPTS}:/workspace/dlrm,${DATADIR}:/raid/datasets/criteo/mlperf/40m.limit_preshuffled,${LOGDIR}:${LOGDIR}")
+
+# Vars with defaults
+: "${NEXP:=10}"
+: "${DATESTAMP:=$(date +'%y%m%d%H%M%S%N')}"
+: "${CLEAR_CACHES:=1}"
+: "${API_LOG_DIR:=./api_logs}" # apiLog.sh output dir
+: "${MOUNTS:='/raid/datasets:/raid/datasets,/gpfs/fs1:/gpfs/fs1'}"
+: "${LOGDIR:=./results}"
+if [ "${API_LOGGING:-}" -eq 1 ]; then
+    MOUNTS="${MOUNTS},${API_LOG_DIR}:/logs"
+fi
+
+
+echo "Using SCRIPTS as ${SCRIPTS} , DATADIR as ${DATADIR} , LOGDIR as ${LOGDIR} with ${_config_file} file with mount=${MOUNTS}"
+
+# make sure the results directory exists on the host
+mkdir --parents "${LOGDIR}"
+
+# Other vars
+readonly _logfile_base="${LOGDIR}/${DATESTAMP}"
+readonly _cont_name=dlrm
+
+# Setup container
+srun --ntasks="${SLURM_JOB_NUM_NODES}" --container-image="${CONT}" --container-name="${_cont_name}" true
+
+# Run experiments
+for _experiment_index in $(seq -w 1 "${NEXP}"); do
+    (
+        echo ":::DLPAL ${CONT} ${SLURM_JOB_ID} ${SLURM_JOB_NUM_NODES} ${SLURM_JOB_NODELIST}"
+        if [[ $CLEAR_CACHES == 1 ]]; then
+            srun --ntasks="${SLURM_JOB_NUM_NODES}" --container-mounts="${MOUNTS}"  bash -c "echo -n 'Clearing cache on ' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3"
+            srun --ntasks="${SLURM_JOB_NUM_NODES}" --container-mounts="${MOUNTS}" --container-name="${_cont_name}" python3 /workspace/dlrm/drop.py
+        fi
+        echo "Beginning trial ${_experiment_index} of ${NEXP}"
+        srun --mpi=pmix --ntasks="${SLURM_JOB_NUM_NODES}" --ntasks-per-node=1 \
+             --container-name="${_cont_name}" --container-mounts="${MOUNTS}" \
+             ${LOGGER:-} ./run_and_time.sh
+    ) |& tee "${_logfile_base}_raw_${_experiment_index}.log"
+
+    # Sorting the MLPerf compliance logs by timestamps
+    cat "${_logfile_base}_raw_${_experiment_index}.log" | grep ":::.L..." | sort -k5 -n -s | tee "${_logfile_base}_${_experiment_index}.log"
+done

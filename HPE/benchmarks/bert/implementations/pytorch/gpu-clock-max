@@ -1,0 +1,7 @@
+#!/bin/bash
+
+nvidia-smi -a | grep -A 3 "Max Clocks" > /tmp/gpu
+
+export MEM="`grep Memory /tmp/gpu | uniq | awk '{print $3}'`"
+export SM="`grep SM /tmp/gpu | uniq | awk '{print $3}'`"
+echo "${MEM},${SM}"

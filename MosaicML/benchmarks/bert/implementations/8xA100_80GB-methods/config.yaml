@@ -1,0 +1,102 @@
+algorithms:
+  fused_layernorm:
+callbacks:
+  speed_monitor:
+  lr_monitor:
+  mlperf:
+    root_folder: /tmp/
+    index: 0
+    benchmark: bert
+    target: 0.72
+    metric_name: MaskedAccuracy
+    metric_label: bert_pre_training
+    exit_at_target: False
+    cache_clear_cmd: /sbin/sysctl -w vm.drop_caches=3
+
+model:
+  bert_unpadded:
+    pretrained_model_name: bert-large-uncased
+    tokenizer_name: bert-large-uncased
+    use_pretrained: false
+    model_config:
+      attention_probs_dropout_prob: 0.0
+      hidden_dropout_prob: 0.0
+
+dataloader:
+  num_workers: 8
+  persistent_workers: true
+  pin_memory: true
+  prefetch_factor: 2
+  timeout: 0
+
+train_batch_size: 448
+train_dataset:
+  streaming_enwiki:
+    local: /tmp/mds-cache/mds-wiki/
+    remote: s3://mosaicml-internal-dataset-enwiki-20200101/mds/2-mlm-020/
+    shuffle: true
+    split: train
+    drop_last: true
+
+eval_batch_size: 448
+eval_interval: 55ba
+evaluators:
+- eval_dataset:
+    streaming_enwiki:
+      local: /tmp/mds-cache/mds-wiki/
+      remote: s3://mosaicml-internal-dataset-enwiki-20200101/mds/2b/
+      shuffle: false
+      split: val
+      drop_last: false
+
+  label: bert_pre_training
+  metric_names:
+  - LanguageCrossEntropy
+  - MaskedAccuracy
+
+optimizers:
+  decoupled_adamw:
+    betas:
+    - 0.9
+    - 0.98
+    eps: 1.0e-06
+    lr: 0.0001
+    weight_decay: 1.0e-05
+
+grad_accum: 1
+grad_clip_norm: -1.0
+max_duration: 6000ba
+precision: amp
+seed: 42
+
+schedulers:
+  multistep_with_warmup:
+    t_warmup: 80ba
+    gamma: 0.9
+    milestones:
+    - 400ba
+    - 600ba
+    - 650ba
+    - 800ba
+    - 850ba
+    - 900ba
+    - 950ba
+    - 1000ba
+    - 1100ba
+    - 1150ba
+    - 1200ba
+    - 1225ba
+    - 1250ba
+    - 1275ba
+    - 1300ba
+    - 1325ba
+    - 1350ba
+    - 1375ba
+    - 1400ba
+    - 1600ba
+
+load_object_store:
+  s3:
+    bucket: mosaicml-internal-checkpoints-bert
+load_path: bert-large-custom-512/checkpoints/bert_large_custom.pt
+load_weights_only: true

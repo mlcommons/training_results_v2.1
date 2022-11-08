@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ../pytorch
+source config_G5500V6x8xA30.sh
+CONT=mlperf-rnnt:rnnt DATADIR=/PATH/TO/DATADIR LOGDIR=/PATH/TO/LOGDIR METADATA_DIR=/PATH/TO/METADATA_DIR SENTENCEPIECES_DIR=/PATH/TO/SENTENCEPIECES_DIR bash ./run_with_docker.sh
