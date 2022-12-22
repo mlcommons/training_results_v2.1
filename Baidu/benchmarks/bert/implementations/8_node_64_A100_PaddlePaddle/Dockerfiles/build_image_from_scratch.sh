@@ -22,9 +22,9 @@ DST_IMAGE="nvcr.io/nvidia/pytorch:${NGC_VER}-py3-paddle-dev-test"
 
 PYTHON_VER="3.8"
 
-export https_proxy=http://172.19.56.199:3128
-export http_proxy=http://172.19.56.199:3128
-export no_proxy=baidu.com,baidubce.com,localhost,127.0.0.1,bj.bcebos.com
+export https_proxy=${https_proxy}
+export http_proxy=${http_proxy}
+export no_proxy=${no_proxy}
 
 ###################
 
