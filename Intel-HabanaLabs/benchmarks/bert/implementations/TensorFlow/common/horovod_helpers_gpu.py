@@ -10,8 +10,8 @@ def hvd_size():
 def hvd_rank():
     return hvd.rank()
 
-def comm_size():
-    return int(os.environ.get("OMPI_COMM_WORLD_SIZE", 1))
+# def comm_size():
+#     return int(os.environ.get("OMPI_COMM_WORLD_SIZE", 1))
 
 def horovod_enabled():
     try:
@@ -20,4 +20,8 @@ def horovod_enabled():
         return False
 
 def comm_local_rank():
-    return int(os.environ.get("OMPI_COMM_WORLD_LOCAL_RANK", 0))
+    return hvd.local_rank()
+    # return int(os.environ.get("OMPI_COMM_WORLD_LOCAL_RANK", 0))
+
+def comm_local_size():
+    return hvd.local_size()

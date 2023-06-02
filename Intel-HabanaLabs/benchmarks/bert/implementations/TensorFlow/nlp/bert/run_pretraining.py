@@ -39,7 +39,7 @@ from TensorFlow.nlp.bert.utils.async_checkpoint import AsyncCheckpointSaverHook
 
 from TensorFlow.common.tb_utils import ExamplesPerSecondEstimatorHook, write_hparams_v1
 from TensorFlow.common.str2bool import condition_env_var
-from habana_frameworks.tensorflow.multinode_helpers import comm_rank, comm_size, comm_local_rank, comm_local_size
+# from habana_frameworks.tensorflow.multinode_helpers import comm_rank, comm_size, comm_local_rank, comm_local_size
 from TensorFlow.common.debug import dump_callback
 from TensorFlow.common.utils import RangeTFHltvProfilerHook
 from absl import logging
@@ -1392,7 +1392,7 @@ if __name__ == "__main__":
     from habana_frameworks.tensorflow.multinode_helpers import comm_rank, comm_size, comm_local_rank
     from habana_frameworks.tensorflow import load_habana_module
   else:
-    from TensorFlow.common.horovod_helpers_gpu import hvd, comm_local_rank, comm_size
+    from TensorFlow.common.horovod_helpers_gpu import hvd_rank, hvd_size, comm_local_rank, comm_local_size
 
   print("*****************************************")
   print("Arguments passed to this program: run_pretraining.")
@@ -1403,6 +1403,8 @@ if __name__ == "__main__":
       logging.error("Problem encountered during Horovod import. Please make sure that habana-horovod package is installed.")
       raise _hvd_exc
     hvd.init()
+    comm_rank = hvd_rank
+    comm_size = hvd_size
   if FLAGS.enable_habana_backend:
     os.environ['TF_USE_CLUSTER_OP']='false'
     os.environ['TF_EXPERIMENTAL_BATCH_VARIABLES']='true'
