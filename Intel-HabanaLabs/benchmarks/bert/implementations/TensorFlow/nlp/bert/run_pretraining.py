@@ -635,7 +635,7 @@ def model_fn_builder(bert_config, init_checkpoint, learning_rate,
           init_string = ""
           if var.name in initialized_variable_names:
             init_string = ", *INIT_FROM_CKPT*"
-          tf.compat.v1.logging.info("  %d :: name = %s, shape = %s%s", 0 if hvd is not None and hvd.is_initialized() else comm_rank(), var.name, var.shape,
+          tf.compat.v1.logging.info("  %d :: name = %s, shape = %s%s", 0 if hvd is not None and hvd.is_initialized() else comm_rank, var.name, var.shape,
                           init_string)
 
     output_spec = None
@@ -667,7 +667,7 @@ def model_fn_builder(bert_config, init_checkpoint, learning_rate,
 
       training_saver_scaffold = saver_scaffold
 
-      if comm_local_rank() == 0 or \
+      if comm_local_rank == 0 or \
         FLAGS.checkpoint_all_workers or \
         (FLAGS.use_lightweight_checkpoint and FLAGS.lightweight_checkpoint_impl == "sharded"):
         save_checkpoints_steps = FLAGS.save_checkpoints_steps
@@ -1018,7 +1018,7 @@ def main(_):
     FLAGS.output_dir = os.path.join(FLAGS.output_dir, f'worker_{hvd.rank()}')
 
     if not FLAGS.use_lightweight_checkpoint or FLAGS.lightweight_checkpoint_impl == "basic":
-      rank_of_local_rank_0 = (comm_rank() // comm_local_size()) * comm_local_size()
+      rank_of_local_rank_0 = (comm_rank // comm_local_size) * comm_local_size
       checkpoints_location = os.path.join(master_output_dir, f"worker_{rank_of_local_rank_0}")
     elif FLAGS.lightweight_checkpoint_impl == "sharded":
       checkpoints_location = os.path.join(master_output_dir, f"worker_{hvd.rank()}")
@@ -1035,9 +1035,9 @@ def main(_):
   for input_file_dir in FLAGS.input_files_dir.split(","):
     input_files.extend(tf.io.gfile.glob(os.path.join(input_file_dir, "*")))
 
-  if FLAGS.horovod and len(input_files) < comm_size():
+  if FLAGS.horovod and len(input_files) < comm_size:
       tf.compat.v1.logging.warning("Input files count lower then expected. Using single file for OVERFIT test.")
-      input_files = [input_files[0] for i in range(comm_size())]
+      input_files = [input_files[0] for i in range(comm_size)]
   if FLAGS.amp and FLAGS.manual_fp16:
       raise ValueError("AMP and Manual Mixed Precision Training are both activated! Error")
 
@@ -1056,7 +1056,14 @@ def main(_):
     enable_op.append("HorovodAllreduce")
 
   if FLAGS.horovod:
-    session_config.gpu_options.visible_device_list = str(comm_local_rank())
+    # WA for TF2.11: https://github.com/tensorflow/tensorflow/issues/58952
+    # TODO(Maozhou): upgrade to TF2
+    gpus = tf.config.experimental.list_physical_devices('XPU')
+    for gpu in gpus:
+      tf.config.experimental.set_memory_growth(gpu, True)
+    if gpus:
+      tf.config.experimental.set_visible_devices(gpus[hvd.local_rank()], 'XPU')
+    session_config.gpu_options.visible_device_list = str(comm_local_rank)
     if hvd.rank() == 0:
       tf.compat.v1.logging.info("***** Configuaration *****")
       for key in FLAGS.__flags.keys():
@@ -1070,7 +1077,7 @@ def main(_):
       if FLAGS.amp:
         tf.compat.v1.enable_resource_variables()
 
-  if comm_local_rank() == 0 or \
+  if comm_local_rank == 0 or \
     FLAGS.checkpoint_all_workers or \
     (FLAGS.use_lightweight_checkpoint and FLAGS.lightweight_checkpoint_impl == "sharded"):
     save_checkpoints_steps = FLAGS.save_checkpoints_steps
@@ -1115,7 +1122,7 @@ def main(_):
   if FLAGS.enable_packed_data_mode:
     batch_size_per_node = batch_size_per_node * FLAGS.avg_seq_per_pack
 
-  global_batch_size = (comm_size() if FLAGS.horovod else 1) * batch_size_per_node
+  global_batch_size = (comm_size if FLAGS.horovod else 1) * batch_size_per_node
   write_hparams_v1(FLAGS.output_dir, {
     'batch_size': FLAGS.train_batch_size,
     'batch_size_per_pu': FLAGS.train_batch_size,
@@ -1391,8 +1398,8 @@ if __name__ == "__main__":
   if FLAGS.enable_habana_backend:
     from habana_frameworks.tensorflow.multinode_helpers import comm_rank, comm_size, comm_local_rank
     from habana_frameworks.tensorflow import load_habana_module
-  else:
-    from TensorFlow.common.horovod_helpers_gpu import hvd_rank, hvd_size, comm_local_rank, comm_local_size
+  # else:
+  #   from TensorFlow.common.horovod_helpers_gpu import hvd, hvd_rank, hvd_size, comm_local_rank, comm_local_size
 
   print("*****************************************")
   print("Arguments passed to this program: run_pretraining.")
@@ -1403,8 +1410,11 @@ if __name__ == "__main__":
       logging.error("Problem encountered during Horovod import. Please make sure that habana-horovod package is installed.")
       raise _hvd_exc
     hvd.init()
-    comm_rank = hvd_rank
-    comm_size = hvd_size
+    comm_rank = hvd.rank()
+    comm_size = hvd.size()
+    comm_local_rank = hvd.local_rank()
+    comm_local_size = hvd.local_size()
+    
   if FLAGS.enable_habana_backend:
     os.environ['TF_USE_CLUSTER_OP']='false'
     os.environ['TF_EXPERIMENTAL_BATCH_VARIABLES']='true'
