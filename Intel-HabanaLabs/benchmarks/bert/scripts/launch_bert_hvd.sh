@@ -352,7 +352,6 @@ export INITIAL_CHECKPOINT=${INITIAL_CHECKPOINT}
 export BERT_CONFIG_DIR=${BERT_CONFIG_DIR}
 export NUM_WORKERS_PER_HLS=${NUM_WORKERS_PER_HLS}
 export OPTIMIZE_DMA_ENGINES_ALLOCATION=${OPTIMIZE_DMA_ENGINES_ALLOCATION}
-export RUN_TPC_FUSER=${RUN_TPC_FUSER}
 export TF_CPU_RUNTIME_FALLBACK=${TF_CPU_RUNTIME_FALLBACK}
 export TF_HCCL_MEMORY_ALLOWANCE_MB=${TF_HCCL_MEMORY_ALLOWANCE_MB}
 export HABANA_INITIAL_WORKSPACE_SIZE_MB=${HABANA_INITIAL_WORKSPACE_SIZE_MB}
@@ -405,6 +404,8 @@ export OPTIMIZER=${__optimizer:-$OPTIMIZER}
 if [ "$HLS_TYPE" == "HLS1-H" ]; then
    export NUM_WORKERS_PER_HLS=4
 elif [ "$HLS_TYPE" == "HLS1" ]; then
+   export NUM_WORKERS_PER_HLS=8
+elif [ "$HLS_TYPE" == "HLS2" ]; then
    export NUM_WORKERS_PER_HLS=8
 else
    "============== WRONG HLS TYPE!! ==============="
@@ -559,9 +560,15 @@ else
     MPI_MAP_BY=socket
     MPI_MAP_BY_PE=`lscpu | grep "^CPU(s):"| awk -v NUM=${NUM_WORKERS_PER_HLS} '{print int($2/NUM/2)}'`
     if [[ "$CPU_BIND_TYPE" == "numa" ||  "$CPU_BIND_TYPE" == "none" ]]; then
-	    MPIRUN_ARGS_MAP_BY_PE="-bind-to none"
+        MPIRUN_ARGS_MAP_BY_PE="-bind-to none"
     else
-	    MPIRUN_ARGS_MAP_BY_PE="--bind-to core --map-by $MPI_MAP_BY:PE=$MPI_MAP_BY_PE"
+        MPIRUN_ARGS_MAP_BY_PE="--bind-to core --map-by $MPI_MAP_BY:PE=$MPI_MAP_BY_PE"
+    fi
+
+    if [ -n "$MPI_TCP_INCLUDE" ]; then
+        _option_btl_tcp_if_include="--mca btl_tcp_if_include ${MPI_TCP_INCLUDE}"
+    else
+        _option_btl_tcp_if_include=""
     fi
 
     TRAINING_COMMAND="mpirun --allow-run-as-root \
@@ -572,7 +579,7 @@ else
 		--hostfile ${MPI_HOSTFILE_PATH} \
 		--prefix ${OMPI_PREFIX} \
 		--mca plm_rsh_args -p${SSH_PORT} \
-		--mca btl_tcp_if_include ${MPI_TCP_INCLUDE} \
+		${_option_btl_tcp_if_include} \
 		--merge-stderr-to-stdout \
 		--tag-output \
 		--output-filename ${LOG_DIR}/bert_log \
@@ -602,7 +609,6 @@ else
 	        -x PHASE1_CKPT=${PHASE1_CKPT} \
 		-x BERT_CONFIG_DIR=${BERT_CONFIG_DIR} \
 		-x OPTIMIZE_DMA_ENGINES_ALLOCATION=${OPTIMIZE_DMA_ENGINES_ALLOCATION} \
-		-x RUN_TPC_FUSER=${RUN_TPC_FUSER} \
 		-x TF_CPU_RUNTIME_FALLBACK=${TF_CPU_RUNTIME_FALLBACK} \
 		-x TF_HCCL_MEMORY_ALLOWANCE_MB=${TF_HCCL_MEMORY_ALLOWANCE_MB} \
 		-x HABANA_INITIAL_WORKSPACE_SIZE_MB=${HABANA_INITIAL_WORKSPACE_SIZE_MB} \
