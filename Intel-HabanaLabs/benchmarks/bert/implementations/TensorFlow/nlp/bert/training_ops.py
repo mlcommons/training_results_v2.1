@@ -11,7 +11,8 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-
+# To fix error "Attempting to capture an EagerTensor without building a function."
+tf.compat.v1.disable_v2_behavior()
 try:
   import horovod.tensorflow as hvd
 except ImportError:
@@ -376,7 +377,7 @@ def update_op(local_step, global_step, optimizer, optimizer_type, loss, num_accu
           apply_gradients_fn = optimizer.apply_gradients
       else:
         apply_gradients_fn = optimizer.apply_gradients
-
+      
       return tf.group(apply_gradients_fn(list(zip(accum_vars, trainable_variables)),
                                     global_step=global_step), update_step)
 

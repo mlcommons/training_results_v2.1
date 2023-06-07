@@ -650,6 +650,8 @@ def model_fn_builder(bert_config, init_checkpoint, learning_rate,
       training_hooks.append(tf_profiler_hook)
 
     saver_scaffold = None
+    # to fix error "local variable 'training_saver_scaffold' referenced before assignment"
+    training_saver_scaffold = None
     if FLAGS.use_lightweight_checkpoint:
       light_checkpoint_saver =  LightweightCheckpointSaver(
         sharded_checkpoints_enabled=True if FLAGS.lightweight_checkpoint_impl == "sharded" else False,

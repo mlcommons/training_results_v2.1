@@ -101,7 +101,7 @@ def vars_summary(var_list):
 
 def get_device_name_by_type(type):
     from tensorflow.python.client import device_lib
-
+    # FIXME(Maozhou): TensorFlow device (XPU:0) is being mapped to multiple devices
     local_devices = device_lib.list_local_devices()
 
     for local_dev in local_devices:
