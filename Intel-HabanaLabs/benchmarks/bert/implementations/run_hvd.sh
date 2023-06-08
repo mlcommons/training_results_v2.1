@@ -61,6 +61,9 @@ enable_device_warmup=True
 precision="--noamp"
 export ITEX_AUTO_MIXED_PRECISION=1
 export ITEX_AUTO_MIXED_PRECISION_DATA_TYPE="BFLOAT16"
+export SYCL_PI_LEVEL_ZERO_USE_IMMEDIATE_COMMANDLISTS=1
+export ITEX_LIMIT_MEMORY_SIZE_IN_MB=4096
+# export ITEX_ALLOC_MODE=2
 
 if [ $USE_HOROVOD == "True" ]; then
    horovod="--horovod --allreduce_post_accumulation=True"
