@@ -58,6 +58,7 @@ SAMPLES_BETWEEN_EVAL=$(($TRAIN_BATCH_SIZE*$NUM_WORKERS_TOTAL*$NUM_ACCUMULATION_S
 STOP_THRESHOLD=0.720
 export TF_DISABLE_SCOPED_ALLOCATOR=True # To fix error "ScopedAllocatorMgr not supported on device"
 enable_device_warmup=True
+precision="--amp" # "--noamp"
 
 if [ $USE_HOROVOD == "True" ]; then
    horovod="--horovod --allreduce_post_accumulation=True"
