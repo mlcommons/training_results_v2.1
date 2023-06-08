@@ -85,7 +85,7 @@ fi
 # 	TF_PROFILE_STEPS=''
 # fi
 
-mpirun -np $NUM_WORKERS_TOTAL -l \
+mpirun -np $NUM_WORKERS_TOTAL \
 python TensorFlow/nlp/bert/run_pretraining.py \
 	--input_files_dir=$INPUT_FILES_DIR \
 	--init_checkpoint=$PHASE1_CKPT \
@@ -109,6 +109,7 @@ python TensorFlow/nlp/bert/run_pretraining.py \
 	$horovod \
 	$precision \
 	$packing_arg \
+	--nouse_xla \
 	--enable_device_warmup=$enable_device_warmup \
 	--samples_between_eval=$SAMPLES_BETWEEN_EVAL \
 	--stop_threshold=$STOP_THRESHOLD \
