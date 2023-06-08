@@ -94,7 +94,7 @@ def create_optimizer(loss, init_lr, num_train_steps, num_warmup_steps, manual_fp
         epsilon=1e-6,
         exclude_from_weight_decay=["LayerNorm", "layer_norm", "bias"])
   if hvd is not None and hvd.is_initialized() and (num_accumulation_steps == 1 or (not allreduce_post_accumulation)):
-    optimizer = hvd.DistributedOptimizer(optimizer, sparse_as_dense=True)
+    optimizer = hvd.DistributedOptimizer(optimizer, sparse_as_dense=True, num_groups=1)
   if use_fp16:
     loss_scaler = tf.compat.v1.mixed_precision.DynamicLossScale(
         initial_loss_scale=init_loss_scale, increment_period=1000, multiplier=2.0)
