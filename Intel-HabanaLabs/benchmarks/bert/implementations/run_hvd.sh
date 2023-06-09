@@ -1,8 +1,6 @@
 #! /bin/bash
 
 source ~/hvd.sh
-
-source ./config.sh
 export PYTHONPATH=$(pwd):$PYTHONPATH
 
 export CCL_ZE_CACHE=0
@@ -12,10 +10,33 @@ export ITEX_AUTO_MIXED_PRECISION_DATA_TYPE="BFLOAT16"
 export ITEX_LIMIT_MEMORY_SIZE_IN_MB=1024
 # export ITEX_ALLOC_MODE=2
 
+DATESTAMP=`date +'%y%m%d%H%M%S'`
+source ./config.sh
+
+export OUTPUT_DIR=./phase_2
+export LOG_DIR=$OUTPUT_DIR
+mkdir -p $OUTPUT_DIR
+
+export DATASET_PATH=/home/mge/dataset/bert_data/tfrecord/lower_case_1_seq_len_512_max_pred_76_masked_lm_prob_0.15_random_seed_12345_dupe_factor_5_shard_1472_test_split_10/wikicorpus_en/
+export INPUT_FILES_DIR_UNPACKED=$DATASET_PATH/training
+export INPUT_FILES_DIR_PACKED=$DATASET_PATH/training_packed
+export EVAL_FILES_DIR=$DATASET_PATH/test
+export INITIAL_CHECKPOINT=/home/mge/dataset/bert_data/download/MLPerf_BERT_checkpoint/tf2_ckpt/model.ckpt-28252
+export BERT_CONFIG_FILE=/home/mge/dataset/bert_data/download/google_pretrained_weights/uncased_L-24_H-1024_A-16/bert_config.json
+
+export PACKED_DATA=True
+if [ $PACKED_DATA == "False" ]; then
+   export INPUT_FILES_DIR=$INPUT_FILES_DIR_UNPACKED
+   packing_arg=""
+else
+   export INPUT_FILES_DIR=$INPUT_FILES_DIR_PACKED
+   packing_arg="--enable_packed_data_mode  --avg_seq_per_pack=2"
+fi
+
 mpirun -np $NUM_WORKERS_TOTAL \
 python TensorFlow/nlp/bert/run_pretraining.py \
 	--input_files_dir=$INPUT_FILES_DIR \
-	--init_checkpoint=$PHASE1_CKPT \
+	--init_checkpoint=$INITIAL_CHECKPOINT \
 	--eval_files_dir=$EVAL_FILES_DIR\
 	--output_dir=$OUTPUT_DIR \
 	--bert_config_file=$BERT_CONFIG_FILE \
