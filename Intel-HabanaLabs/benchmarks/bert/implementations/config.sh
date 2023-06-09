@@ -4,7 +4,7 @@ export DO_TRAIN=True
 export DO_EVAL=True
 export IS_DIST_EVAL_ENABLED=False
 export TRAIN_BATCH_SIZE=14 # OOM for 28
-export EVAL_BATCH_SIZE=125
+export EVAL_BATCH_SIZE=64
 export MAX_EVAL_STEPS=10
 export MAX_SEQ_LENGTH=512
 export MAX_PRED_PER_SEQ=76
@@ -24,7 +24,7 @@ export OPTIMIZER=lamb
 export USE_HOROVOD=True
 if [ $USE_HOROVOD == "True" ]; then
    horovod="--horovod --allreduce_post_accumulation=True"
-#   export IS_DIST_EVAL_ENABLED=True # to WA error `RESOURCE_EXHAUSTED` when distributed evaluation?
+   export IS_DIST_EVAL_ENABLED=True
 else
    horovod=""
 fi
