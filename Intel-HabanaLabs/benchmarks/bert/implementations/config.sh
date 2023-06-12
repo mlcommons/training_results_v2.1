@@ -4,8 +4,8 @@ export DO_TRAIN=True
 export DO_EVAL=True
 export IS_DIST_EVAL_ENABLED=False
 export TRAIN_BATCH_SIZE=14 # OOM for 28
-export EVAL_BATCH_SIZE=64 # RESOURCE_EXHAUSTED for 125
-export MAX_EVAL_STEPS=10
+export EVAL_BATCH_SIZE=50 # RESOURCE_EXHAUSTED for 125
+export MAX_EVAL_STEPS=25 # assert (FLAGS.max_eval_steps * FLAGS.num_dist_eval_workers * FLAGS.eval_batch_size) == EVAL_SAMPLES == 10000
 export MAX_SEQ_LENGTH=512
 export MAX_PRED_PER_SEQ=76
 export TRAIN_STEPS=6700
