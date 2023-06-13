@@ -443,7 +443,7 @@ class MLPerfHook(tf.estimator.SessionRunHook):
     mllogger.event(key=mllog.constants.OPT_LAMB_BETA_2, value=beta_2)
     mllogger.event(key=mllog.constants.OPT_LAMB_LR_DECAY_POLY_POWER, value=power)
     mllogger.event(key=mllog.constants.OPT_LAMB_WEIGHT_DECAY, value=weight_decay_rate)
-    mllogger.event(key=mllog.constants.OPT_LAMB_EPSILON, value=epsilon)
+    mllogger.event(key="opt_epsilon", value=epsilon)
 
     self.mllogger = mllogger
     self.mllog = mllog

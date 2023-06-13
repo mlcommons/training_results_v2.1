@@ -47,6 +47,7 @@ EXPERIMENTAL_SLACK=${EXPERIMENTAL_SLACK:-True}
 NUM_DIST_EVAL_WORKERS=${NUM_DIST_EVAL_WORKERS:-0}
 OPTIMIZER=${OPTIMIZER:-'lamb'}
 
+export RUN_TPC_FUSER=${RUN_TPC_FUSER:-False}
 export TF_BF16_CONVERSION=${BASE_PATH}/../TensorFlow/common/bf16_config/bert.json
 export USE_LIGHTWEIGHT_CHECKPOINT=${USE_LIGHTWEIGHT_CHECKPOINT:-True}
 export LIGHTWEIGHT_CHECKPOINT_IMPL=${LIGHTWEIGHT_CHECKPOINT_IMPL:-"basic"}
@@ -71,8 +72,7 @@ if [[ $SIGNALING_FROM_GRAPH -eq 1 ]]; then
 	export TF_DISABLE_SCOPED_ALLOCATOR=True
 	export HOROVOD_FUSION_THRESHOLD=0
 	export TF_USE_SIGNALING_FROM_ENCAP_OP=1
-else
-	export TF_USE_SIGNALING_FROM_ENCAP_OP=0
+	export TF_NO_EMULATE_SIGNALING_FROM_ENCAP_OP=1
 fi
 
 # Currently sharded LAMB works only when ScopedAllocator is disabled and loop unrolling is False
@@ -125,8 +125,8 @@ fi
 
 # clear cache
 if [[ $OMPI_COMM_WORLD_LOCAL_RANK -eq 0 ]]; then
-  PROC_FS=${PROC_FS:-"/proc"}
-  sync && echo 3 > $PROC_FS/sys/vm/drop_caches
+	sync
+	echo 3 > /proc/sys/vm/drop_caches
 fi
 
 #env > env_${OMPI_COMM_WORLD_LOCAL_RANK}.log
