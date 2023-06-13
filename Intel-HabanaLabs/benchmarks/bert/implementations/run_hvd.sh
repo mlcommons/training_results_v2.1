@@ -33,7 +33,7 @@ else
    packing_arg="--enable_packed_data_mode  --avg_seq_per_pack=2"
 fi
 
-mpirun -np $NUM_WORKERS_TOTAL \
+mpirun -np $NUM_WORKERS_TOTAL -l \
 python TensorFlow/nlp/bert/run_pretraining.py \
 	--input_files_dir=$INPUT_FILES_DIR \
 	--init_checkpoint=$INITIAL_CHECKPOINT \

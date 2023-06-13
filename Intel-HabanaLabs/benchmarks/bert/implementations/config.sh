@@ -25,6 +25,7 @@ export USE_HOROVOD=True
 if [ $USE_HOROVOD == "True" ]; then
    horovod="--horovod --allreduce_post_accumulation=True"
    export IS_DIST_EVAL_ENABLED=True
+   export HOROVOD_STALL_CHECK_DISABLE=1
 else
    horovod=""
 fi
