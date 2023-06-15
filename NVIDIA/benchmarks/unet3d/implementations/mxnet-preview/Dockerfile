@@ -21,6 +21,10 @@ WORKDIR /workspace/unet3d
 #RUN pip install --upgrade pip
 RUN pip install --disable-pip-version-check -r requirements.txt
 
+# fix https://github.com/mlcommons/training_results_v2.1/issues/8
+RUN pip uninstall -y numpy
+RUN pip install numpy==1.23.1
+
 ENV MXNET_CUDNN_AUTOTUNE_DEFAULT=0
 ENV MXNET_ENABLE_CUDA_GRAPHS=1
 
