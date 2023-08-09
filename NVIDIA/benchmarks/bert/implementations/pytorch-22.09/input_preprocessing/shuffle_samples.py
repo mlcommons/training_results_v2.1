@@ -51,5 +51,6 @@ master_sample_idx = 0
 for ofile_idx in tqdm(range(num_shards)):
     n_samples_in_this_shard = ifile_handles[ofile_idx][0].shape[0]
     idxs=ind[master_sample_idx:master_sample_idx+n_samples_in_this_shard]
+    master_sample_idx += n_samples_in_this_shard
     with open(f'{args.output_hdf5}/shard_list_{ofile_idx:05}.lst','w') as f:
         f.write(json.dumps(idxs))
